@@ -41,7 +41,7 @@ body {
   }
   
   a.article-title:hover {
-    color: #428bca;
+    color: red;
     text-decoration: none;
   }
   
@@ -82,3 +82,5 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+ 
