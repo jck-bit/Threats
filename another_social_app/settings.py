@@ -28,12 +28,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DJANGO_ICONS = {
+    "ICONS": {
+        "edit": {"name": "far fa-pencil"},
+    },
+}
 
 # Application definition
 
 INSTALLED_APPS = [
+
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'fontawesome_5',
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.admin',

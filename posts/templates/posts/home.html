@@ -1,6 +1,6 @@
 {% extends "posts/base.html" %}
 {% block content %}
-{% load static %}
+
     <div class="shareWrapper">
       <div class="shareTop">
       <img class="shareProfileImg" src="{{user.profile.image.url}}" alt="user" />
@@ -14,16 +14,17 @@
       <div class="shareBottom">
           <div class="shareOptions">
               <div class="shareOption">
-                  <span class="shareOptionText">Photo or video</span>
+                <i class="fas fa-camera"></i>
               </div>
           </div>
-          <button class="shareButton" type='submit'>Post</button>
+          <button class="shareButton" type='submit'>post</button>
       </div>
       </form>
       </div>
     </div>
     {% for post in posts %}
         <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="#">{{ post.user }}</a>
