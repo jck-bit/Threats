@@ -1,5 +1,27 @@
 {% extends "posts/base.html" %}
 {% block content %}
+{% load static %}
+    <div class="shareWrapper">
+      <div class="shareTop">
+      <img class="shareProfileImg" src="{{user.profile.image.url}}" alt="user" />
+          <form action="" class='form_input'>
+              <textarea
+              placeholder= 'whats on your mind'
+              class="searchInput"
+              >
+            </textarea>
+      <hr class="shareHr"/>
+      <div class="shareBottom">
+          <div class="shareOptions">
+              <div class="shareOption">
+                  <span class="shareOptionText">Photo or video</span>
+              </div>
+          </div>
+          <button class="shareButton" type='submit'>Post</button>
+      </div>
+      </form>
+      </div>
+    </div>
     {% for post in posts %}
         <article class="media content-section">
           <div class="media-body">
