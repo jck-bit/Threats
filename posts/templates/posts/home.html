@@ -1,27 +1,5 @@
 {% extends "posts/base.html" %}
 {% block content %}
-
-    <div class="shareWrapper">
-      <div class="shareTop">
-      <img class="shareProfileImg" src="{{user.profile.image.url}}" alt="user" />
-          <form action="" class='form_input'>
-              <textarea
-              placeholder= 'whats on your mind'
-              class="searchInput"
-              >
-            </textarea>
-      <hr class="shareHr"/>
-      <div class="shareBottom">
-          <div class="shareOptions">
-              <div class="shareOption">
-                <i class="fas fa-camera"></i>
-              </div>
-          </div>
-          <button class="shareButton" type='submit'>post</button>
-      </div>
-      </form>
-      </div>
-    </div>
     {% for post in posts %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">

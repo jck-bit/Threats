@@ -23,6 +23,9 @@
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
             <p class="article-content">{{ post.caption }}</p>
+            {% if post.image %}
+              <img src="{{ post.image.url }}" alt="Post Image"  width="100%" height="100%">
+            {% endif %}
           </div>
         </article>
       {% endfor %}
