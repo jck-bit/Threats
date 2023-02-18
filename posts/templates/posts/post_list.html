@@ -1,0 +1,23 @@
+{% extends "posts/base.html"%}
+{% block content%}
+<div class="profile-header">
+    <img class="rounded-circle account-img" src="{{ profile_user.profile.image.url }}" alt="Profile Image">
+    <h2>{{ profile_user.username }}</h2>
+</div>
+
+<div class="post-section">
+    {% for post in posts %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'profile-view' post.user.pk %}">{{ post.user }}</a>
+                <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+            </div>
+            <p class="article-content">{{ post.caption }}</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+{%endblock%}
