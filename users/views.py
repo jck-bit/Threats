@@ -4,7 +4,7 @@ from .forms import UserRegisterForm
 from posts.models import Post
 from django.contrib.auth.models import User
 from django.views.generic import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def register(request):
     if request.method == 'POST':
@@ -20,7 +20,7 @@ def register(request):
 
 class ProfileView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'users/profile.html'
+    # template_name = 'users/profile.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
@@ -31,4 +31,9 @@ class ProfileView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['profile_user'] = get_object_or_404(User, pk=self.kwargs.get('pk'))
         return context
-    
+
+
+def profile(request):
+    posts = Post.objects.filter(user=request.user)
+    context = {'posts':posts}
+    return render(request, 'users/profile.html', context)
