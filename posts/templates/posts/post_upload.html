@@ -1,0 +1,16 @@
+{% extends "posts/base.html" %}
+{% block content %}
+  <h2>New Post</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="caption">Caption</label>
+      <textarea class="form-control" name="caption" id="caption" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="image_upload">Image</label>
+      <input type="file" class="form-control-file" name="image_upload" id="image_upload">
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+{% endblock %}
