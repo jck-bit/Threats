@@ -29,6 +29,7 @@ body {
   }
   
   .content-section {
+    position: relative;
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
@@ -36,6 +37,18 @@ body {
     margin-bottom: 20px;
   }
   
+  .styled-profile{
+    position: absolute;
+    background-color: #f4ecec;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
   .article-title {
     color: #444444;
   }
