@@ -33,7 +33,9 @@
               <a class="nav-item nav-link" href="{% url 'post-upload' %}">New post</a>
               <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
               <a class="nav-item nav-link" href="{% url 'logout'%}">Logout</a>
-              <img class="rounded-circle article-img " src="{{user.profile.image.url}}" alt="">
+              <a href="{% url 'profile' %}">
+                <img class="rounded-circle article-img " src="{{user.profile.image.url}}" alt="">
+              </a>
             </div>
               {% else %}
             <!-- Navbar Right Side -->
@@ -47,7 +49,6 @@
       </nav>
     </header>
     <main role="main" class="container">
-      <div class="row">
         <div class="col-md-8">
           {% if messages %}
             {% for message in messages %}
@@ -57,12 +58,6 @@
             {% endfor %}
           {% endif %}
           {% block content %}{% endblock %}
-        </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>suggested users to follow</h3>
-            </p>
-          </div>
         </div>
       </div>
     </main>
