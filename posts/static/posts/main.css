@@ -11,7 +11,7 @@ body {
   ul {
     margin: 0;
   }
-  
+
   .bg-steel {
     background-color: rgba(0, 0, 0, 0.8);
   }
@@ -32,6 +32,9 @@ body {
     margin-right: 20px;
   }
 
+  .container{
+    display: flex;
+  }
   .content-section {
     position: relative;
     background:rgb(0, 0, 0);

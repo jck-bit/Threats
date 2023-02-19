@@ -26,10 +26,11 @@ def about(request):
 def upload(request):
     if request.method == 'POST':
         user = request.user
-        image = request.FILES.get('image_upload')
-        print(image)
+        image = request.FILES.get('image')
         caption = request.POST['caption']
-        new_post = Post.objects.create(user=user, image=image, caption=caption)
+        if image:
+            new_post.image = image
+        new_post = Post.objects.create(user=user, caption=caption, image=image)
         new_post.save()
         return redirect('/')
     else:
