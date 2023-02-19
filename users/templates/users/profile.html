@@ -1,21 +1,21 @@
 {% extends "posts/base.html" %}
 
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-        </div>
-      </div>
-      <a href="{% url 'profile-edit'  %}">
-        <button class="styled-profile">Edit profile</button>
-      </a>
+<div class="profile-user">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
     </div>
-    <div class="post-section">
+  </div>
+  <a href="{% url 'profile-edit'  %}">
+    <button class="styled-profile">Edit profile</button>
+  </a>
+</div> 
+      <div class="content-section">     
       {% for post in posts %}
-        <article class="media content-section">
+        <article class="media content-section" style="width: 80%">
           <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
           <div class="media-body">
             <div class="article-metadata">
@@ -24,7 +24,7 @@
             </div>
             <p class="article-content">{{ post.caption }}</p>
             {% if post.image %}
-              <img src="{{ post.image.url }}" alt="Post Image"  width="100%" height="100%">
+              <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
             {% endif %}
           </div>
         </article>
