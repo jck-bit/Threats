@@ -33,7 +33,7 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['profile_user'] = get_object_or_404(User, pk=self.kwargs.get('pk'))
         return context
 
-
+@login_required
 def profile(request):
     posts = Post.objects.filter(user=request.user)
     context = {'posts':posts}
