@@ -6,6 +6,11 @@
           <div class="article-metadata">
             <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ object.user }}</a>
             <small class="text-muted">{{ object.date_posted |date:"F d, Y" }}</small>
+            {% if object.user == user%}
+              <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id%}">edit</a>
+              </div>
+            {%endif%}
           </div>
           <p class="article-content">{{ object.caption }}</p>
         </div>
