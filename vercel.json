@@ -24,7 +24,7 @@
         },
         {
             "src": "/(?!media).*",
-            "dest": "/media/$1"
+            "dest": "/another_social_app/wsgi.py"
         },
         {
             "src": "/(.*)",
