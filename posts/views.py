@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . models import Post
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 @login_required
@@ -14,13 +14,28 @@ def home(request):
 class PostDetailView(DetailView):
     model = Post
 
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['caption', 'image']
 
     def form_valid(self, form):
         return super().form_valid(form)
-    
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['caption', 'image']
+    success_url= '/'
+
+    def form_valid(self, form):
+        form.instance.user =self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+        return False
 
 def about(request):
     return render(request, 'posts/about.html')
