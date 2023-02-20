@@ -1,0 +1,13 @@
+{% extends "posts/base.html"%}
+{% block content%}
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{object.user.profile.image.url}}" alt="">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ object.user }}</a>
+            <small class="text-muted">{{ object.date_posted |date:"F d, Y" }}</small>
+          </div>
+          <p class="article-content">{{ object.caption }}</p>
+        </div>
+      </article>
+{% endblock content%}

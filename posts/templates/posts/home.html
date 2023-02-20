@@ -11,8 +11,9 @@
               <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <!-- <p><a class="article-title" href="#">{{ post.caption }}</a></p> -->
-            <p class="article-content">{{ post.caption }}</p>
+            <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
+              <p class="article-content">{{ post.caption }}</p>
+            </a>
             {% if post.image %}
               <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
             {% endif %}
