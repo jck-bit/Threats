@@ -5,7 +5,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
-    bio = models.TextField()
+    bio = models.TextField(blank=True)
 
     def __str__(self) -> str:
         return f"{self.user.username} profile"
@@ -20,4 +20,3 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
