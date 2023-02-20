@@ -9,3 +9,4 @@ Pillow==9.4.0
 psycopg2-binary==2.9.5
 python-decouple==3.7
 sqlparse==0.4.3
+

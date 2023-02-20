@@ -15,6 +15,11 @@ import os
 import dj_database_url
 from decouple import config
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,18 +28,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
-ALLOWED_HOSTS = [ '*']
 
-DJANGO_ICONS = {
-    "ICONS": {
-        "edit": {"name": "far fa-pencil"},
-    },
-}
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
+
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -93,9 +98,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+
 }
 
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -129,7 +135,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-MEDIA_ROOT= ' media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = 'media/'
 
 
