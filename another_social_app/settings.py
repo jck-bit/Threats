@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '*']
 
 DJANGO_ICONS = {
     "ICONS": {
