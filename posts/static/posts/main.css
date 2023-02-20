@@ -43,6 +43,10 @@ body {
     margin-bottom: 20px;
   }
   
+  .p-content {
+    text-decoration: none;
+  }
+
 .profile-user{
   position: relative;
   margin-bottom: 10px;

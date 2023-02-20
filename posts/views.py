@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . models import Post
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 @login_required
@@ -10,6 +10,9 @@ def home(request):
         'posts':Post.objects.all().order_by('-date_posted')
     }
     return render(request, 'posts/home.html', context)
+
+class PostDetailView(DetailView):
+    model = Post
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
