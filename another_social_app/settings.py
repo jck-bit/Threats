@@ -18,8 +18,6 @@ from decouple import config
 from dotenv import load_dotenv
 load_dotenv()
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,8 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = False
-
+DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -44,7 +41,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
     'fontawesome_5',
@@ -57,7 +53,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages'
-    
 ]
 
 MIDDLEWARE = [
@@ -150,7 +145,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 LOGIN_REDIRECT_URL='post-home'
 LOGIN_URL = 'login'

@@ -2,3 +2,4 @@
 *.db
 .env
 media
+__pycache__

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from . models import Post
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 
 @login_required
 def home(request):
@@ -50,16 +51,13 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'posts/about.html')
 
-@login_required
-def upload(request):
-    if request.method == 'POST':
-        user = request.user
-        image = request.FILES.get('image')
-        caption = request.POST['caption']
-        if image:
-            new_post.image = image
-        new_post = Post.objects.create(user=user, caption=caption, image=image)
-        new_post.save()
-        return redirect('/')
-    else:
-        return render(request, 'posts/post_upload.html')
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    success_url = '/'
+    template_name = 'posts/post_upload.html'
+    fields = ['caption', 'image']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
