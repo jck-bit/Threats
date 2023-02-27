@@ -2,7 +2,6 @@
 {% block content %}
 
    <div class="container-element">
-
       {% for post in posts %}
         <article class="media content-section" style="width: 80%">
           <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
@@ -18,8 +17,13 @@
               <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
             {% endif %}
           </div>
+          <a href="/like-post?post_id={{ post.id }}" class="home {% if post.is_liked_by_user %}liked{% endif %}">
+            <div>
+              <i class="fa-solid fa-heart"></i>
+              <span>{{ post.no_of_likes }}</span>
+            </div>
+          </a>
         </article>
     {% endfor %}
-    <h1>hello</h1>
    </div>
 {% endblock content %}

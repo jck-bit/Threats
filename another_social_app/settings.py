@@ -43,7 +43,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
-    'fontawesome_5',
+    'fontawesomefree',
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.admin',
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storages'
+ #   'storages'
 ]
 
 MIDDLEWARE = [
@@ -97,7 +97,7 @@ DATABASES = {
 
 }
 
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -151,9 +151,9 @@ LOGIN_URL = 'login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-AWS_STORAGE_BUCKET_NAME= os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY= os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_S3_FILE_OVERWRITE= False
-AWS_DEFAULT_ACL= None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_STORAGE_BUCKET_NAME= os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY= os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_S3_FILE_OVERWRITE= False
+# AWS_DEFAULT_ACL= None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
