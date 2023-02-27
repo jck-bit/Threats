@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import Post
+from . models import Post,LikePost
 from django.contrib.auth.decorators import login_required
 from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -61,3 +61,26 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
+@login_required
+def  like_post(request):
+    username = request.user.username
+    post_id = request.GET.get('post_id')
+
+    post = Post.objects.get(id=post_id)
+
+    like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
+
+    if like_filter == None:
+        new_like = LikePost.objects.create(post_id=post_id, username=username)
+        new_like.save()
+        post.no_of_likes = post.no_of_likes+1
+        post.save()
+
+        return redirect('/')
+    else:
+        like_filter.delete()
+        post.no_of_likes = post.no_of_likes-1
+        post.save()
+
+        return redirect('/')

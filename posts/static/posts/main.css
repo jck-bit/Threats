@@ -28,6 +28,21 @@ body {
     font-weight: 500;
   }
 
+
+  .home{
+    color: white;
+    text-decoration: none;
+  }
+
+  .home:hover{
+    color: rgb(210, 19, 121);
+    text-decoration: none;
+  }
+  
+  .home.liked i.fa-heart {
+    color: rgb(210, 19, 121);
+  }
+
   .navbar-nav .nav-item {
     margin-right: 20px;
   }

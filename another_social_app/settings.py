@@ -43,7 +43,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
-    'fontawesome_5',
+    'fontawesomefree',
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.admin',

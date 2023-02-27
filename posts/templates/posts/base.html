@@ -1,5 +1,5 @@
 {% load static %}
-{% load fontawesome_5 %}
+
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,8 @@
     
     <link rel="stylesheet" type="text/css" href="{% static 'posts/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'posts/share.css' %}">
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
     {% if title %}
         <title>Django social App - {{ title }}</title>
