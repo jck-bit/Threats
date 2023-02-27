@@ -5,7 +5,7 @@ crispy-bootstrap5==0.7
 dj-database-url==1.2.0
 Django==4.1.7
 django-crispy-forms==2.0
-django-fontawesome-5==1.0.18
+fontawesomefree==6.3.0
 django-icons==22.1
 django-storages==1.13.2
 jmespath==1.0.1
