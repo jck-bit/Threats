@@ -39,4 +39,3 @@ Once the development server is running, you can sign up for an account and start
 - AWS S3
 - vercel
 - Railways
-
