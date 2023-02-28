@@ -84,3 +84,4 @@ def  like_post(request):
         post.save()
 
         return redirect('/')
+    

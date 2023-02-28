@@ -38,7 +38,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+# Application definition88.95mb which exceeds the maximum size limit of 50mb
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
