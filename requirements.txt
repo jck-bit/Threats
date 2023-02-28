@@ -6,7 +6,6 @@ dj-database-url==1.2.0
 Django==4.1.7
 django-crispy-forms==2.0
 fontawesomefree==6.3.0
-django-icons==22.1
 django-storages==1.13.2
 psycopg2-binary==2.9.5
 python-decouple==3.7
@@ -15,5 +14,4 @@ s3transfer==0.6.0
 six==1.16.0
 sqlparse==0.4.3
 urllib3==1.26.14
-
 
