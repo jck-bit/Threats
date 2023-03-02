@@ -3,6 +3,11 @@ body {
     color: #ffffff;
     margin-top: 5rem;
   }
+
+  .whole_home{
+    display: flex;
+    justify-content: space-between;
+  }
   
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
@@ -11,7 +16,9 @@ body {
   ul {
     margin: 0;
   }
-
+  .fw-bold{
+    font-weight: bolder;
+  }
   .bg-steel {
     background-color: rgba(0, 0, 0, 0.8);
   }
@@ -32,6 +39,7 @@ body {
   .home{
     color: white;
     text-decoration: none;
+    
   }
 
   .home:hover{
@@ -41,6 +49,19 @@ body {
   
   .home.liked i.fa-heart {
     color: rgb(210, 19, 121);
+  }
+
+  .liked_div{
+    position: absolute;
+    bottom: 2px;
+    display: flex;
+    right: 10px;
+    padding-top: 5px;
+    align-items: center;
+  }
+
+  .liked_div span{
+    margin-left: 5px;
   }
 
   .navbar-nav .nav-item {
@@ -133,4 +154,30 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
- 
+
+.follow_section{
+  padding: 20px;
+  border-radius: 5px;
+  height: fit-content;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.68);
+}  
+
+.user-profile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.profile-info{
+  display: flex;
+}
+
+.follow-button{
+  padding: 5px 15px;
+  margin-left: 20px;
+  border-radius:10px;
+  cursor: pointer;
+  border: none;
+}

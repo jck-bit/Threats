@@ -4,11 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 @login_required
 def home(request):
     context ={
-        'posts':Post.objects.all().order_by('-date_posted')
+        'posts':Post.objects.all().order_by('-date_posted'),
+        'users':User.objects.all()
     }
     return render(request, 'posts/home.html', context)
 

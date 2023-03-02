@@ -8,6 +8,7 @@
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">{{ user.profile.bio }}</p>
+      <p class="text-secondary">{{ post_queryset_length }} posts</p>
     </div>
   </div>
   <a href="{% url 'profile-edit'  %}">

@@ -1,6 +1,6 @@
 {% extends "posts/base.html" %}
 {% block content %}
-
+  <div class="whole_home">
    <div class="container-element">
       {% for post in posts %}
         <article class="media content-section" style="width: 80%">
@@ -17,13 +17,26 @@
               <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
             {% endif %}
           </div>
-          <a href="/like-post?post_id={{ post.id }}" class="home {% if post.is_liked_by_user %}liked{% endif %}">
-            <div>
+          <a href="/like-post?post_id={{ post.id }}" class="home">
+            <div class="liked_div">
               <i class="fa-solid fa-heart"></i>
               <span>{{ post.no_of_likes }}</span>
             </div>
           </a>
         </article>
     {% endfor %}
-   </div>
+  </div>
+  <div class="follow_section">
+    <p class="fw-bold">who to follow</p>
+    {% for user in users %}
+      <div class="user-profile">
+        <div class="profile-info">
+          <img class="rounded-circle article-img" src="{{ user.profile.image.url }}" alt="">
+          <p>{{ user.username }}</p>
+        </div>
+        <button class="follow-button">Follow</button>
+      </div>
+    {% endfor %}
+ </div>
+</div>
 {% endblock content %}

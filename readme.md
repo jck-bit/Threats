@@ -9,7 +9,7 @@ This is a social media project developed with Python Django,
 To get started, clone the repository:
 
 ```
- git clone https://github.com/username/social-media-project.git
+ git clone  https://github.com/jck-bit/A-social-media-app-in-Django.git
 ```
 cd
 ```
