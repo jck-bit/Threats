@@ -8,7 +8,7 @@ class Post(models.Model):
     caption = models.TextField()
     no_of_likes = models.IntegerField(default=0)
     date_posted = models.DateTimeField(default=timezone.now)
-
+                                                            
     def is_liked_by(self,user):
         return self.likes.filter(user=user).exists()
 
@@ -21,3 +21,10 @@ class LikePost(models.Model):
 
     def __str__(self) -> str:
         return self.username
+    
+class FollowersCount(models.Model):
+    follower = models.CharField(max_length=100)
+    user = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.user
