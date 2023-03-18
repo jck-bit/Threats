@@ -17,7 +17,6 @@ def home(request):
 class PostDetailView(DetailView):
     model = Post
 
-
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['caption', 'image']
@@ -86,4 +85,6 @@ def  like_post(request):
         post.save()
 
         return redirect('/')
-    
+@login_required
+def follow(request):
+    pass
