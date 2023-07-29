@@ -2,9 +2,12 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+def get_upload_path(instance, filename):
+    return f"post_pics/{instance.user.username}/{filename}"
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='post_pics', blank=True, null=True)
+    image = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
     caption = models.TextField()
     no_of_likes = models.IntegerField(default=0)
     date_posted = models.DateTimeField(default=timezone.now)

@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
-from decouple import config
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -28,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa'
 DEBUG = True
 
 
@@ -52,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'storages'
+
 ]
 
 MIDDLEWARE = [
@@ -86,8 +84,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -96,8 +92,6 @@ DATABASES = {
     }
 
 }
-
-# DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -150,10 +144,3 @@ LOGIN_REDIRECT_URL='post-home'
 LOGIN_URL = 'login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-# AWS_STORAGE_BUCKET_NAME= os.environ.get("AWS_STORAGE_BUCKET_NAME")
-# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY= os.environ.get("AWS_SECRET_ACCESS_KEY")
-# AWS_S3_FILE_OVERWRITE= False
-# AWS_DEFAULT_ACL= None
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
