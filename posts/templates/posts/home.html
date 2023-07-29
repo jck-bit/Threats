@@ -3,7 +3,7 @@
   <div class="whole_home">
    <div class="container-element">
       {% for post in posts %}
-        <article class="media content-section" style="width: 80%">
+        <article class="media content-section">
           <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
           <div class="media-body">
             <div class="article-metadata">
@@ -14,7 +14,9 @@
               <p class="article-content">{{ post.caption }}</p>
             </a>
             {% if post.image %}
-              <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
+              <div class="image-container">
+                <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+              </div>
             {% endif %}
           </div>
           <a href="/like-post?post_id={{ post.id }}" class="home">
@@ -26,17 +28,6 @@
         </article>
     {% endfor %}
   </div>
-  <div class="follow_section">
-    <p class="fw-bold">who to follow</p>
-    {% for user in users %}
-      <div class="user-profile">
-        <div class="profile-info">
-          <img class="rounded-circle article-img" src="{{ user.profile.image.url }}" alt="">
-          <p>{{ user.username }}</p>
-        </div>
-        <button class="follow-button">Follow</button>
-      </div>
-    {% endfor %}
- </div>
 </div>
 {% endblock content %}
+

@@ -17,13 +17,6 @@ def home(request):
 class PostDetailView(DetailView):
     model = Post
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['caption', 'image']
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['caption', 'image']
@@ -87,4 +80,14 @@ def  like_post(request):
         return redirect('/')
 @login_required
 def follow(request):
-    pass
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        user = User.objects.get(id=user_id)
+        if user != request.user:
+            if user.followers.filter(id=request.user.id).exists():
+                user.followers.remove(request.user)
+            else:
+                user.followers.add(request.user)
+        return redirect('profile', username=user.username)
+    
+    return redirect('home')
