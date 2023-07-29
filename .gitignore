@@ -1,5 +1,4 @@
 *.sqlite3
 *.db
 .env
-media
 __pycache__
