@@ -28,7 +28,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.user:
+        if self.request.user == post.user:   
             return True
         return False
 
