@@ -24,6 +24,12 @@
               <img src="{{ post.image.url }}" alt="Post Image"  width="100%" height="100%">
             {% endif %}
         </div>
+        <a href="/like-post?post_id={{ post.id }}"class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+            <div class="liked_div {% if post.is_liked_by_user %}liked{% endif %}">
+              <i class="fa-solid fa-heart"></i>
+              <span>{{ post.no_of_likes }}</span>
+            </div>
+          </a>
     </article>
     {% endfor %}
 </div>
