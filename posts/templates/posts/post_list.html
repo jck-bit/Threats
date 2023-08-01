@@ -5,6 +5,21 @@
     <h2>{{ profile_user.username }}</h2>
     <p>{{profile_user.profile.bio}}</p>
     <p>{{ post_queryset_length }} threats</p>
+    
+    <p class="text-secondary">Followers: <span id="followers-count">{{ followers.count }}</span></p>
+<p class="text-secondary">Following: <span id="following-count">{{ following.count }}</span></p>
+
+     
+    {% if user != profile_user %}
+    <button class="follow-btn ml-2 {% if profile_following %}unfollow{% endif %}" data-user-id="{{ profile_user.id }}">
+        {% if profile_following %}
+            following
+        {% else %}
+            Follow
+        {% endif %}
+    </button>
+    {% endif %}
+  
 </div>
 <div class="post-section">
     {% for post in posts %}
@@ -33,4 +48,34 @@
     </article>
     {% endfor %}
 </div>
+<script>
+  // JavaScript for handling the follow action
+  document.querySelectorAll('.follow-btn').forEach(button => {
+      button.addEventListener('click', function (event) {
+          event.preventDefault();
+          const userId = button.dataset.userId;
+          const csrfToken = '{{csrf_token}}'
+          const headers = new Headers({
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrfToken
+          });
+
+          fetch(`/follow-user/${userId}/`, { method: 'POST', headers: headers })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      alert(data.error);
+                  } else {
+                      button.textContent = data.following ? 'Unfollow' : 'Follow';
+                      button.classList.toggle('unfollow', data.following);
+                      // Update the follower and following counts dynamically
+                      document.getElementById('followers-count').textContent = data.followers_count;
+                      document.getElementById('following-count').textContent = data.following_count;
+                  }
+              })
+              .catch(error => console.error('Error:', error));
+      });
+  });
+</script>
+
 {%endblock%}

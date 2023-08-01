@@ -27,6 +27,9 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('profile-edit/', user_views.profile_edit, name='profile-edit'),
     path('profile/<int:pk>/', user_views.ProfileView.as_view(template_name='users/profile'), name='profile-view'),
+    path('follow-user/<int:pk>/', user_views.follow_user, name='follow-user'),
+    #path to follow user
+    
     path('', include('posts.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
