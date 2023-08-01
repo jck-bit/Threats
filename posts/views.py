@@ -9,7 +9,8 @@ from django.http import JsonResponse
 
 @login_required
 def home(request):
-    posts = Post.objects.all()
+   
+    posts = Post.objects.all().order_by('-date_posted')
     username = request.user.username
 
     for post in posts:
