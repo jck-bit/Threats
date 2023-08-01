@@ -4,18 +4,22 @@
     <img class="rounded-circle account-img" src="{{ profile_user.profile.image.url }}" alt="Profile Image">
     <h2>{{ profile_user.username }}</h2>
     <p>{{profile_user.profile.bio}}</p>
+    <p>{{ post_queryset_length }} posts</p>
 </div>
-
 <div class="post-section">
     {% for post in posts %}
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
         <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'profile-view' post.user.pk %}">{{ post.user }}</a>
-                <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+            <div class="article-metadata p-2">
+                <a class="mr-2" href="{% url 'profile-view' post.user.pk %}">
+                    <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+                    {{ post.user }}
+                </a>
+                <small class="text-muted m-2">{{ post.date_posted | date:"F d, Y" }}</small>
             </div>
-            <p class="article-content">{{ post.caption }}</p>
+            <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
+                <p class="article-content">{{ post.caption }}</p>
+              </a>
             {% if post.image %}
               <img src="{{ post.image.url }}" alt="Post Image"  width="100%" height="100%">
             {% endif %}
