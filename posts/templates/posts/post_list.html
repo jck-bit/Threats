@@ -1,25 +1,32 @@
 {% extends "posts/base.html"%}
 {% block content%}
+<div class="d-flex justify-content-between">
 <div class="profile-header">
     <img class="rounded-circle account-img" src="{{ profile_user.profile.image.url }}" alt="Profile Image">
     <h2>{{ profile_user.username }}</h2>
     <p>{{profile_user.profile.bio}}</p>
     <p>{{ post_queryset_length }} threats</p>
     
-    <p class="text-secondary">Followers: <span id="followers-count">{{ followers.count }}</span></p>
-<p class="text-secondary">Following: <span id="following-count">{{ following.count }}</span></p>
-
-     
-    {% if user != profile_user %}
-    <button class="follow-btn ml-2 {% if profile_following %}unfollow{% endif %}" data-user-id="{{ profile_user.id }}">
-        {% if profile_following %}
-            following
-        {% else %}
-            Follow
-        {% endif %}
-    </button>
+    <div class="d-flex">
+      <p class="text-secondary">Followers: <span id="followers-count">{{ followers.count }}</span></p>
+      <p class="text-secondary" style="margin-left: 10px;">Following: 
+        <span id="following-count">
+         {{ following.count }}
+      </span>
+      </p>
+    </div>
+</div>
+<section class="mt-3">
+  {% if user != profile_user %}
+<button type="button" class="follow-btn ml-2  {% if profile_following %}unfollow{% endif %} btn btn-outline-success" data-user-id="{{ profile_user.id }}" >
+    {% if profile_following %}
+        following
+    {% else %}
+        Follow
     {% endif %}
-  
+</button>
+{% endif %}
+</section>
 </div>
 <div class="post-section">
     {% for post in posts %}
