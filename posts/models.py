@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 def get_upload_path(instance, filename):
     return f"post_pics/{instance.user.username}/{filename}"
@@ -32,3 +34,12 @@ class FollowersCount(models.Model):
 
     def __str__(self) -> str:
         return self.user
+    
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, related_name='following', on_delete=models.CASCADE)
+    followed = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('follower', 'followed')
