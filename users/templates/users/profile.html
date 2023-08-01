@@ -1,5 +1,4 @@
 {% extends "posts/base.html" %}
-
 {% block content %}
 <div class="profile-user">
   <div class="media">
@@ -8,15 +7,13 @@
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">{{ user.profile.bio }}</p>
-      <p class="text-secondary">{{ post_queryset_length }} posts</p>
+      <p class="text-secondary">{{ post_query_length }} posts</p>
     </div>
   </div>
   <a href="{% url 'profile-edit'  %}">
     <button class="styled-profile">Edit profile</button>
   </a>
-</div>    
-      {% for post in posts %}
-      <div class="content-section">  
+  {% for post in posts %}
         <article class="media content-section" style="width: 100%">
           <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
           <div class="media-body">
@@ -28,10 +25,12 @@
               <p class="article-content">{{ post.caption }}</p>
             </a>
             {% if post.image %}
-              <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+              <div class="image-container">
+                <img src="{{ post.image.url }}" alt="Post Image">
+              </div>
             {% endif %}
           </div>
         </article>
-        </div>
       {% endfor %}
+</div>    
 {% endblock content %}

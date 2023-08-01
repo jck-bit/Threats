@@ -1,10 +1,12 @@
 {% extends "posts/base.html"%}
 {% block content%}
     <article class="media content-section">
-      <img class="rounded-circle article-img" src="{{object.user.profile.image.url}}" alt="">
         <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ object.user }}</a>
+          <div class="article-metadata p-2">
+            <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">
+              <img class="rounded-circle article-img" src="{{object.user.profile.image.url}}" alt="">
+              {{ object.user }}
+            </a>
             <small class="text-muted">{{ object.date_posted |date:"F d, Y" }}</small>
             {% if object.user == user%}
               <div>

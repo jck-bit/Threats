@@ -4,11 +4,11 @@
    <div class="container-element">
       {% for post in posts %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
           <div class="media-body">
-            <div class="article-metadata">
+            <div class="article-metadata p-2 d-flex align-items-center">
+              <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
               <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              <small class="text-muted m-2">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
             <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
               <p class="article-content">{{ post.caption }}</p>
@@ -30,4 +30,3 @@
   </div>
 </div>
 {% endblock content %}
-

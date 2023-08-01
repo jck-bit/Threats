@@ -21,7 +21,7 @@ def register(request):
 
 class ProfileView(LoginRequiredMixin, ListView):
     model = Post
-    # template_name = 'users/profile.html'
+    #template_name = 'users/profile.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
@@ -30,13 +30,16 @@ class ProfileView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['profile_user'] = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        profile_user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        context['profile_user'] = profile_user
+        context['post_queryset_length'] = Post.objects.filter(user=profile_user).count()
         return context
 
 @login_required
 def profile(request):
     posts = Post.objects.filter(user=request.user)
-    context = {'posts':posts}
+    post_query_length = posts.count()
+    context = {'posts':posts, 'post_query_length':post_query_length}
     return render(request, 'users/profile.html', context)
 
 @login_required

@@ -1,6 +1,4 @@
 body {
-    background: #fff;
-    color: #333;
     margin-top: 5rem;
   }
 
@@ -19,9 +17,9 @@ body {
   .fw-bold{
     font-weight: bolder;
   }
-  .bg-steel {
+  /* .bg-steel {
     background-color: rgba(0, 0, 0, 0.8);
-  }
+  } */
   
   .site-header .navbar-nav .nav-link {
     color: #cbd5db;
@@ -72,10 +70,11 @@ body {
   }
   .content-section {
     position: relative;
-    background:rgb(0, 0, 0);
     padding: 10px 20px;
     border-radius: 3px;
     margin-bottom: 20px;
+    border: 1px solid  #e3e3e3;
+    color: #333;
   }
   
   .p-content {
@@ -85,7 +84,6 @@ body {
 .profile-user{
   position: relative;
   margin-bottom: 10px;
-  background:rgb(0, 0, 0);
   padding: 5px;
   margin: 5px;
 
@@ -107,9 +105,7 @@ body {
   width: 100%;
   height: 100%;
 }
-  .article-title {
-    color: #444444;
-  }
+
   
   a.article-title:hover {
     color: red;
@@ -118,6 +114,7 @@ body {
  
   .article-content {
     white-space: pre-line;
+    color: #333;
   }
   
   .article-img {
@@ -129,7 +126,7 @@ body {
   .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3
+    border-bottom: 1px solid #e3e3e3;
   }
   
   .article-metadata a:hover {
