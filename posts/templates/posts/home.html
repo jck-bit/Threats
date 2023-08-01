@@ -6,8 +6,10 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata p-2 d-flex align-items-center">
-              <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
-              <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
+              <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">
+                <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
+                {{ post.user }}
+              </a>
               <small class="text-muted m-2">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
             <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
@@ -19,8 +21,8 @@
               </div>
             {% endif %}
           </div>
-          <a href="/like-post?post_id={{ post.id }}" class="home">
-            <div class="liked_div">
+          <a href="/like-post?post_id={{ post.id }}"class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+            <div class="liked_div {% if post.is_liked_by_user %}liked{% endif %}">
               <i class="fa-solid fa-heart"></i>
               <span>{{ post.no_of_likes }}</span>
             </div>
@@ -29,4 +31,24 @@
     {% endfor %}
   </div>
 </div>
+<script>
+  // JavaScript to handle the like action
+  document.querySelectorAll('.like-link').forEach(link => {
+      link.addEventListener('click', function (event) {
+          event.preventDefault();
+          const postId = link.dataset.postId;
+          fetch(`/like-post?post_id=${postId}`)
+              .then(response => response.json())
+              .then(data => {
+                  link.querySelector('span').textContent = data.likes_count;
+                  if (data.liked) {
+                      link.classList.add('liked');
+                  } else {
+                      link.classList.remove('liked');
+                  }
+              })
+              .catch(error => console.error('Error:', error));
+      });
+  });
+</script>
 {% endblock content %}

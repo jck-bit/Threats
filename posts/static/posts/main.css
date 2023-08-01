@@ -34,7 +34,7 @@ body {
   }
 
   .home{
-    color: white;
+    color: #333;
     text-decoration: none;
     
   }
@@ -57,6 +57,14 @@ body {
     align-items: center;
   }
 
+  /* Custom styles for the liked icon */
+.liked  {
+  color: rgb(226, 114, 133); 
+}
+
+.liked .fa-heart:hover{
+  color: rgb(226, 114, 133);
+}  
   .liked_div span{
     margin-left: 5px;
   }

@@ -7,7 +7,7 @@
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">{{ user.profile.bio }}</p>
-      <p class="text-secondary">{{ post_query_length }} posts</p>
+      <p class="text-secondary">{{ post_query_length }} threats</p>
     </div>
   </div>
   <a href="{% url 'profile-edit'  %}">
@@ -15,11 +15,13 @@
   </a>
   {% for post in posts %}
         <article class="media content-section" style="width: 100%">
-          <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
           <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{% url 'profile-view' post.user.pk %}">{{ post.user }}</a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            <div class="article-metadata p-2">
+              <a class="mr-2" href="{% url 'profile-view' post.user.pk %}">
+                <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+                {{ post.user }}
+              </a>
+              <small class="text-muted m-2">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
             <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
               <p class="article-content">{{ post.caption }}</p>
