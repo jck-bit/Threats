@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from posts.models import LikePost
 
 def register(request):
     if request.method == 'POST':
@@ -32,6 +33,12 @@ class ProfileView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         profile_user = get_object_or_404(User, pk=self.kwargs.get('pk'))
         context['profile_user'] = profile_user
+        
+        #adding the is_liked attribute to each post 
+        for post in context['posts']:
+            like_filter = LikePost.objects.filter(post_id=post.id, username=self.request.user.username).first()
+            post.is_liked_by_user = like_filter is not None
+
         context['post_queryset_length'] = Post.objects.filter(user=profile_user).count()
         return context
 

@@ -4,7 +4,7 @@
     <img class="rounded-circle account-img" src="{{ profile_user.profile.image.url }}" alt="Profile Image">
     <h2>{{ profile_user.username }}</h2>
     <p>{{profile_user.profile.bio}}</p>
-    <p>{{ post_queryset_length }} posts</p>
+    <p>{{ post_queryset_length }} threats</p>
 </div>
 <div class="post-section">
     {% for post in posts %}
@@ -27,5 +27,4 @@
     </article>
     {% endfor %}
 </div>
-
 {%endblock%}

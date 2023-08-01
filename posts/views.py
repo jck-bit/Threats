@@ -5,13 +5,21 @@ from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 @login_required
 def home(request):
-    context ={
-        'posts':Post.objects.all().order_by('-date_posted'),
-        'users':User.objects.all()
+    posts = Post.objects.all()
+    username = request.user.username
+
+    for post in posts:
+        like_filter = LikePost.objects.filter(post_id=post.id, username=username).first()
+        post.is_liked_by_user = like_filter is not None
+
+    context = {
+        'posts': posts,
     }
+
     return render(request, 'posts/home.html', context)
 
 class PostDetailView(DetailView):
@@ -70,14 +78,19 @@ def  like_post(request):
         new_like.save()
         post.no_of_likes = post.no_of_likes+1
         post.save()
+        liked = True
 
-        return redirect('/')
     else:
         like_filter.delete()
         post.no_of_likes = post.no_of_likes-1
         post.save()
+        liked = False
 
-        return redirect('/')
+    data = {
+        'liked': liked,
+        'likes_count': post.no_of_likes
+    }
+    return JsonResponse(data)
 @login_required
 def follow(request):
     if request.method == 'POST':
