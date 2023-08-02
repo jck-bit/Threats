@@ -203,3 +203,21 @@ body {
   object-fit: contain;
   border-radius: 5px;
 }
+
+.suggested-user {
+  margin-top: 5px;
+}
+.suggested-user img{
+  border-radius: 50%;
+}
+
+.suggested-user span{
+  margin-right: 5px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+.suggested-user a{
+  text-decoration: none;
+  margin-top: 10px;
+}

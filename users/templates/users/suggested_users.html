@@ -1,4 +1,68 @@
 <div id="suggested-users">
     <!-- Users will be dynamically added here -->
-    <!-- users are being added here using a js scrip in the main.js file-->
   </div>
+  
+  <script>
+    // Fetch the suggested users from the JSON API
+    fetch('/suggested-users/')
+      .then(response => response.json())
+      .then(data => {
+        const suggestedUsersDiv = document.getElementById('suggested-users');
+  
+        // Loop through the users and create HTML elements for each user
+        data.users.forEach(user => {
+          const userDiv = document.createElement('div');
+          userDiv.classList.add('suggested-user');
+          const profileImage = user.profile_image_url || '/path/to/default/image/'; // Replace '/path/to/default/image/' with the default image URL
+  
+          userDiv.innerHTML = `
+            <a href="/profile/${user.id}">
+              <img src="${profileImage}" alt="${user.username}" width="50" height="50">
+              <span>${user.username}</span>
+            </a>
+            <button class="btn btn-primary btn-sm" onclick="followUser(${user.id})" data-following="false">Follow</button>
+          `;
+  
+          suggestedUsersDiv.appendChild(userDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching suggested users:', error);
+      });
+  
+    // Function to follow a user
+    
+// Function to follow a user
+function followUser(userId) {
+    const button = document.querySelector(`[onclick="followUser(${userId})"]`);
+
+    fetch(`/follow-user/${userId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}', // Replace '{{ csrf_token }}' with the actual value of the CSRF token
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            const isFollowing = data.following;
+            button.dataset.following = isFollowing.toString();
+            button.textContent = isFollowing ? 'Following' : 'Follow';
+            button.classList.toggle('following', isFollowing);
+
+            // Set the button style for the 'following' state
+            if (isFollowing) {
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-success');
+            } else {
+                button.classList.remove('btn-outline-success');
+                button.classList.add('btn-primary');
+            }
+        })
+        .catch(error => {
+            console.error('Error following user:', error);
+        });
+}
+
+  </script>
+  
