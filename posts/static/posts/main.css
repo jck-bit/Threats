@@ -59,7 +59,7 @@ body {
 
   /* Custom styles for the liked icon */
 .liked  {
-  color: rgb(226, 114, 133); 
+  color:  rgb(249, 24, 128);
 }
 
 .liked .fa-heart:hover{
