@@ -56,7 +56,7 @@
         </div>
     </nav>
     <main role="main" class="container w-100 mt-4">
-        <div class="row d-flex justify-content-between w-75">
+        <div class="row d-flex justify-content-between w-100">
             <!-- Center - Main Content Block -->
             <div class="col-md-9">
                 {% if messages %}
@@ -72,15 +72,16 @@
             </div>
 
             <!-- Right Side - Suggestions Card -->
-            {%if user.is_authenticated%}
-            <div class="col-md-3">
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Suggestions</h5>
-                    </div>
-                </div>
-            </div>
-            {%endif%}
+            {% if user.is_authenticated %}
+<div class="col-md-3">
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Suggestions</h5>
+            {% include 'users/suggested_users.html' %}
+        </div>
+    </div>
+</div>
+{% endif %}
         </div>
     </main>
 

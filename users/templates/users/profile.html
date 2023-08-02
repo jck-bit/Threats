@@ -8,6 +8,9 @@
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">{{ user.profile.bio }}</p>
       <p class="text-secondary">{{ post_queryset_length }} posts</p>
+      <p class="">Following {{following}} </p>
+      <p>Followers {{followers}}</p>
+      
     </div>
   </div>
   <a href="{% url 'profile-edit'  %}">

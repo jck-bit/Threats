@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
-from posts.models import Post, FollowersCount
+from posts.models import Post
 from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,8 +9,7 @@ from django.contrib.auth.decorators import login_required
 from posts.models import LikePost,Follow
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
-
-
+from django.db.models import Count
 
 def register(request):
     if request.method == 'POST':
@@ -43,28 +42,34 @@ class ProfileView(LoginRequiredMixin, ListView):
 
         context['post_queryset_length'] = Post.objects.filter(user=profile_user).count()
         following = Follow.objects.filter(follower=self.request.user, followed=profile_user).exists()
-        context['profile_following'] = following
+        context['profile_following'] = following      
 
         context['following'] = profile_user.following.all()
         context['followers'] = profile_user.followers.all()
+
+        current_user = self.request.user
+  
         return context
 
 @login_required
 def profile(request):
     user = request.user
     posts = Post.objects.filter(user=user)
-
+     
     for post in posts:
         like_filter = LikePost.objects.filter(post_id=post.id, username=user.username).first()
         post.is_liked_by_user = like_filter is not None
+        
 
-    following = [follower.user for follower in FollowersCount.objects.filter(follower=user.username)]
-    followers_count = FollowersCount.objects.filter(user=user.username).count()
+        following = Follow.objects.filter(follower=user).values_list('followed', flat=True).count()
+        followers = Follow.objects.filter(followed=user).values_list('follower', flat=True).count()
+ 
     context = {
         'posts': posts,
         'post_queryset_length': posts.count(),
         'following': following,
-        'followers_count': followers_count,
+        'followers': followers,
+
     }
 
     return render(request, 'users/profile.html', context)
@@ -92,13 +97,11 @@ def profile_edit(request):
     }
     return render(request, 'users/update.html', context)
 
-
-from django.http import JsonResponse
-
 @csrf_protect
 @login_required
 def follow_user(request, pk):
     profile_user = get_object_or_404(User, pk=pk)
+    print(profile_user)
 
     if request.method == 'POST':
         if profile_user != request.user:
@@ -118,3 +121,5 @@ def follow_user(request, pk):
             return JsonResponse({'error': 'You cannot follow yourself'})
     else:
         return JsonResponse({'error': 'Something went wrong'})
+
+#suggested_users_to_follow
