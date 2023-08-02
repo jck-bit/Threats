@@ -8,8 +8,15 @@
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">{{ user.profile.bio }}</p>
       <p class="text-secondary">{{ post_queryset_length }} posts</p>
-      <p class="">Following {{following}} </p>
-      <p>Followers {{followers}}</p>
+
+      <div class="d-flex">
+        <p class="text-secondary">Followers <span id="followers-count">{{ followers }}</span></p>
+        <p class="text-secondary" style="margin-left: 10px;">Following
+          <span id="following-count">
+           {{ following }}
+        </span>
+        </p>
+      </div>
       
     </div>
   </div>
