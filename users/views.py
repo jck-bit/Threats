@@ -9,7 +9,9 @@ from django.contrib.auth.decorators import login_required
 from posts.models import LikePost,Follow
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
-from django.db.models import Count
+from django.db.models import Q
+from django.http import JsonResponse
+from django.db.models import F
 
 def register(request):
     if request.method == 'POST':
@@ -122,4 +124,20 @@ def follow_user(request, pk):
     else:
         return JsonResponse({'error': 'Something went wrong'})
 
-#suggested_users_to_follow
+
+
+
+
+@login_required
+def suggested_users(request):
+    # Get the currently logged-in user
+    user = request.user
+
+    suggested_users = User.objects.filter(~Q(followers__follower=user) & ~Q(pk=user.pk))
+    data = list(suggested_users.values('id', 'username', profile_image_url=F('profile__image')))
+
+
+    for user_data in data:
+        user_data['profile_image_url'] = '/media/' + user_data['profile_image_url']
+
+    return JsonResponse({'users': data})

@@ -27,6 +27,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('profile-edit/', user_views.profile_edit, name='profile-edit'),
     path('profile/<int:pk>/', user_views.ProfileView.as_view(template_name='users/profile'), name='profile-view'),
+    path('suggested-users/', user_views.suggested_users, name='suggested_users'),
     path('follow-user/<int:pk>/', user_views.follow_user, name='follow-user'),
     #path to follow user
     
