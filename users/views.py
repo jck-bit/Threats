@@ -125,12 +125,9 @@ def follow_user(request, pk):
         return JsonResponse({'error': 'Something went wrong'})
 
 
-
-
-
 @login_required
 def suggested_users(request):
-    # Get the currently logged-in user
+    # Get the  logged-in user
     user = request.user
 
     suggested_users = User.objects.filter(~Q(followers__follower=user) & ~Q(pk=user.pk))
