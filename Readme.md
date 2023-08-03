@@ -11,9 +11,9 @@ To get started, clone the repository:
 ```
  git clone  https://github.com/jck-bit/A-social-media-app-in-Django.git
 ```
-cd
+cd into the project
 ```
-another_social_app
+cd + name of project
 ```
 install dependancies
 ```
@@ -34,8 +34,6 @@ Once the development server is running, you can sign up for an account and start
 ## 🛠️ Technologies Used
 
 - Python3
-
 - Django
-- AWS S3
+- CSS 3
 - vercel
-- Railways

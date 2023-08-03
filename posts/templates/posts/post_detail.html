@@ -38,7 +38,7 @@
               <!-- <i class="fa-solid fa-heart"></i> -->
             </div>
           </section>
-          {% for reply in comment.replies.all %}
+          <!-- {% for reply in comment.replies.all %}
             <div class="reply">
               <strong>{{ reply.author.username }}</strong>: {{ reply.text }}
               <button class="like-comment-link m-2 {% if reply.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ reply.id }}">
@@ -48,7 +48,7 @@
                 </div>
               </button>
             </div>
-          {% endfor %}
+          {% endfor %} -->
         {% endfor %}
       </div>
       </article>

@@ -43,7 +43,10 @@ body {
     color: rgb(210, 19, 121);
     text-decoration: none;
   }
-  
+  a{
+    text-decoration: none !important;
+  }
+
   .home.liked i.fa-heart {
     color: rgb(210, 19, 121);
   }
