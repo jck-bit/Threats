@@ -50,7 +50,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['following'] = profile_user.following.all()
         context['followers'] = profile_user.followers.all()
 
-        current_user = self.request.user
   
         return context
 
@@ -64,15 +63,14 @@ def profile(request):
         post.is_liked_by_user = like_filter is not None
         
 
-        following = Follow.objects.filter(follower=user).values_list('followed', flat=True).count()
-        followers = Follow.objects.filter(followed=user).values_list('follower', flat=True).count()
+    following = Follow.objects.filter(follower=user).values_list('followed', flat=True).count()
+    followers = Follow.objects.filter(followed=user).values_list('follower', flat=True).count()
  
     context = {
         'posts': posts,
         'post_queryset_length': posts.count(),
         'following': following,
         'followers': followers,
-
     }
 
     return render(request, 'users/profile.html', context)
