@@ -49,8 +49,6 @@ function followUser(userId) {
             button.dataset.following = isFollowing.toString();
             button.textContent = isFollowing ? 'Following' : 'Follow';
             button.classList.toggle('following', isFollowing);
-            document.getElementById('followers-count').textContent = data.followers_count;
-            document.getElementById('following-count').textContent = data.following_count;
 
             // Set the button style for the 'following' state
             if (isFollowing) {

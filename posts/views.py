@@ -9,13 +9,16 @@ from django.http import JsonResponse
 
 @login_required
 def home(request):
-   
     posts = Post.objects.all().order_by('-date_posted')
-    username = request.user.username
 
     for post in posts:
-        like_filter = LikePost.objects.filter(post_id=post.id, username=username).first()
+        like_filter = LikePost.objects.filter(post_id=post.id, username=request.user.username).first()
         post.is_liked_by_user = like_filter is not None
+
+        comments_preview = post.comments.filter(parent__isnull=True).order_by('-created_at')[:3]
+        for comment in comments_preview:
+            comment.is_liked_by_user = comment.likes.filter(pk=request.user.pk).exists()
+        post.comments_preview = comments_preview
 
     context = {
         'posts': posts,

@@ -1,27 +1,55 @@
-{% extends "posts/base.html"%}
-{% block content%}
-    <article class="media content-section">
+{% extends "posts/base.html" %}
+{% block content %}
+    <article class="media content-section border-bottom-0">
         <div class="media-body">
           <div class="article-metadata p-2">
-            <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">
-              <img class="rounded-circle article-img" src="{{object.user.profile.image.url}}" alt="">
+            <a class="mr-1" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
+              <img class="rounded-circle article-img" src="{{ object.user.profile.image.url }}" alt="">
               {{ object.user }}
             </a>
-            <small class="text-muted">{{ object.date_posted |date:"F d, Y" }}</small>
-            {% if object.user == user%}
+            <small class="text-muted m-2">{{ object.date_posted | date:"F d, Y" }}</small>
+            {% if object.user == user %}
               <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id%}">edit</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id%}">Delete</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">edit</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
               </div>
-            {%endif%}
+            {% endif %}
           </div>
           <p class="article-content">{{ object.caption }}</p>
         </div>
-        <a href="/like-post?post_id={{ post.id }}"class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
-          <div class="liked_div {% if post.is_liked_by_user %}liked{% endif %}">
-            <i class="fa-solid fa-heart"></i>
-            <span>{{ post.no_of_likes }}</span>
+        <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+          <i class="fa-solid fa-heart"></i>
+          <span>{{ post.no_of_likes }}</span>
+      </section>
+      <div class="comments-section border-top" style="padding-top: 5px;">
+        <span>replace with input field for commenting</span>
+        {% for comment in object.comments.all %}
+          <div class="comment d-flex align-items-center">
+            <a href="{% url 'profile-view' pk=comment.author.pk%}" style="text-decoration: none;">
+             <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
+             {{ comment.author.username }}
+            </a>
+            <small class="text-muted m-2">{{ comment.created_at | date:"F d, Y" }}</small>
           </div>
-        </a>
+          <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
+            <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
+              <p class="article-content">{{ comment.text }}</p>
+              <span>{{ comment.likes_count }}</span>
+              <!-- <i class="fa-solid fa-heart"></i> -->
+            </div>
+          </section>
+          {% for reply in comment.replies.all %}
+            <div class="reply">
+              <strong>{{ reply.author.username }}</strong>: {{ reply.text }}
+              <button class="like-comment-link m-2 {% if reply.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ reply.id }}">
+                <div class="liked_div {% if reply.is_liked_by_user %}liked{% endif %}">
+                  <i class="fa fa-comment"></i>
+                  <span>{{ reply.likes_count }}</span>
+                </div>
+              </button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
       </article>
-{% endblock content%}
+{% endblock content %}

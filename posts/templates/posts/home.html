@@ -21,14 +21,20 @@
               </div>
             {% endif %}
           </div>
-          <a href="/like-post?post_id={{ post.id }}"class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
-            <div class="liked_div {% if post.is_liked_by_user %}liked{% endif %}">
-              <i class="fa-solid fa-heart"></i>
-              <span>{{ post.no_of_likes }}</span>
-            </div>
-          </a>
+          <div class="d-flex align-items-center flex-start">
+            <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
+            <span class="p-2">
+              <i class="fa fa-comment"></i>
+              <span style="text-decoration: none;">{{post.comments.count}}</span>
+            </span>
+            </a>
+            <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+                <i class="fa-solid fa-heart"></i>
+                <span>{{ post.no_of_likes }}</span>
+            </section>
+          </div>
         </article>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
 {% endblock content %}
