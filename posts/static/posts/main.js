@@ -15,4 +15,3 @@ document.querySelectorAll('.like-link').forEach(link => {
             .catch(error => console.error('Error:', error));
     });
 });
-
