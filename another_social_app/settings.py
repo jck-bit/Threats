@@ -18,7 +18,7 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,7 +27,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa'
-DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -84,16 +83,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
-
-
-DATABASES = {
+if DEBUG == True:
+   DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 
 }
+else:
+   DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '5432',
+    }
+}
 
+   
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
