@@ -111,12 +111,15 @@ def follow_user(request, pk):
             if not created:
                 follow.delete()
                 following = False
+                messages.warning(request, f"You are no longer following {profile_user.username}")
             else:
                 following = True
+                messages.success(request, f"You are now following {profile_user.username}") 
 
             followers_count = profile_user.followers.count()
             following_count = profile_user.following.count()
 
+            
             return JsonResponse({'following': following, 'followers_count': followers_count, 'following_count': following_count})
         else:
             return JsonResponse({'error': 'You cannot follow yourself'})

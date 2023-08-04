@@ -10,7 +10,7 @@ from django.http import JsonResponse
 @login_required
 def home(request):
     posts = Post.objects.all().order_by('-date_posted')
-
+    
     for post in posts:
         like_filter = LikePost.objects.filter(post_id=post.id, username=request.user.username).first()
         post.is_liked_by_user = like_filter is not None
