@@ -50,7 +50,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['following'] = profile_user.following.all()
         context['followers'] = profile_user.followers.all()
 
-  
         return context
 
 @login_required
@@ -122,6 +121,7 @@ def follow_user(request, pk):
             
             return JsonResponse({'following': following, 'followers_count': followers_count, 'following_count': following_count})
         else:
+            messages.warning(request, f"You cannot follow yourself")
             return JsonResponse({'error': 'You cannot follow yourself'})
     else:
         return JsonResponse({'error': 'Something went wrong'})
