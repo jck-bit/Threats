@@ -29,7 +29,7 @@ def register(request):
 class ProfileView(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'posts'
-    
+     
     def get_queryset(self):
         user = get_object_or_404(User, pk=self.kwargs.get('pk'))
         return Post.objects.filter(user=user).order_by('-date_posted')
@@ -51,6 +51,9 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['followers'] = profile_user.followers.all()
 
         return context
+# tC]W0)2}
+
+
 
 @login_required
 def profile(request):
@@ -126,7 +129,6 @@ def follow_user(request, pk):
     else:
         return JsonResponse({'error': 'Something went wrong'})
 
-
 @login_required
 def suggested_users(request):
     # Get the  logged-in user
@@ -137,7 +139,7 @@ def suggested_users(request):
 
 
     for user_data in data:
-        user_data['profile_image_url'] = '/media/' + user_data['profile_image_url']
+        user_data['profile_image_url'] =  user_data['profile_image_url']
 
     data = random.sample(data, len(data))
 

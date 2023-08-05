@@ -28,7 +28,7 @@
               <span style="text-decoration: none;">{{post.comments.count}}</span>
             </span>
             </a>
-            <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+            <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
                 <i class="fa-solid fa-heart"></i>
                 <span>{{ post.no_of_likes }}</span>
             </section>
