@@ -5,7 +5,7 @@
     <img class="rounded-circle account-img" src="{{ profile_user.profile.image.url }}" alt="Profile Image">
     <h2>{{ profile_user.username }}</h2>
     <p>{{profile_user.profile.bio}}</p>
-    <p>{{ post_queryset_length }} threats</p>
+    <p>{{ post_queryset_length }} posts</p>
 
     <div class="d-flex">
       <p class="text-secondary">Followers: <span id="followers-count">{{ followers.count }}</span></p>
