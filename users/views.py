@@ -51,8 +51,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['followers'] = profile_user.followers.all()
 
         return context
-# tC]W0)2}
-
 
 
 @login_required
