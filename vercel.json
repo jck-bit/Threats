@@ -5,7 +5,7 @@
             "src": "another_social_app/wsgi.py",
             "use": "@vercel/python",
             "config": {
-                "maxLambdaSize": "50mb",
+                "maxLambdaSize": "15mb",
                 "runtime": "python3.9"
             }
         },
@@ -26,7 +26,14 @@
             "src": "/(.*)",
             "dest": "another_social_app/wsgi.py"
         }
-
+    ],
+    "ignore": [
+        ".git",
+        ".vscode",
+        "venv",
+        "node_modules",
+        "staticfiles",
+        "staticfiles_build",
+        "media"
     ]
-
 }
