@@ -119,7 +119,6 @@ def follow_user(request, pk):
             followers_count = profile_user.followers.count()
             following_count = profile_user.following.count()
 
-            
             return JsonResponse({'following': following, 'followers_count': followers_count, 'following_count': following_count})
         else:
             messages.warning(request, f"You cannot follow yourself")
