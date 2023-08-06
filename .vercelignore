@@ -1,0 +1,7 @@
+.git
+.vscode
+venv
+node_modules
+staticfiles
+staticfiles_build
+media

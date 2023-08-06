@@ -26,14 +26,7 @@
             "src": "/(.*)",
             "dest": "another_social_app/wsgi.py"
         }
-    ],
-    "ignore": [
-        ".git",
-        ".vscode",
-        "venv",
-        "node_modules",
-        "staticfiles",
-        "staticfiles_build",
-        "media"
+
     ]
+
 }
