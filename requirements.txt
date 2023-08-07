@@ -13,14 +13,12 @@ click-log==0.4.0
 colorama==0.4.6
 crispy-bootstrap5==0.7
 cryptography==41.0.3
-css-html-js-minify==2.5.5
 deprecation==2.1.0
 dj-database-url==1.2.0
 Django==4.1.7
 django-crispy-forms==2.0
 django-fontawesome-5==1.0.18
 django-icons==22.1
-django-minify-html==1.6.0
 django-storages==1.13.2
 docutils==0.20.1
 dotty-dict==1.3.1

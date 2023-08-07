@@ -31,7 +31,6 @@ SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -50,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'django_minify_html'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_minify_html.middleware.MinifyHtmlMiddleware',
 ]
 
 ROOT_URLCONF = 'another_social_app.urls'
@@ -84,27 +81,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
-if DEBUG == True:
-   DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-
+DATABASES = {
+'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME':  'postgres',
+    'USER': 'postgres',
+    'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
+    'HOST': os.environ.get("SUPABASE_HOST"),
+    'PORT': '5432',
+    
 }
-else:
-   DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
-        'HOST': os.environ.get("SUPABASE_HOST"),
-        'PORT': '5432',
-    }
 }
 
-   
+# if DEBUG == True:
+#    DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+
+# }
+# else:
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -144,8 +142,10 @@ MEDIA_URL = 'media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static/"
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static" )]
+STATIC_ROOT = os.path.join(BASE_DIR , "staticfiles_build" , "static")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
