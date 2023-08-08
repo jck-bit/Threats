@@ -18,7 +18,7 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEBUG = False
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -81,7 +81,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
-DATABASES = {
+
+if DEBUG == True:
+   DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+
+}
+else:
+    DATABASES = {
 'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME':  'postgres',
@@ -89,19 +99,8 @@ DATABASES = {
     'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
     'HOST': os.environ.get("SUPABASE_HOST"),
     'PORT': '5432',
-    
-}
-}
-
-# if DEBUG == True:
-#    DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-
-# }
-# else:
+     
+}}
 
 
 # Password validation
