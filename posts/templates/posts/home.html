@@ -2,6 +2,16 @@
 {% block content %}
   <div class="whole_home">
    <div class="container-element">
+
+    <div class="parent_input">
+      <div class="user_post m-2">
+        <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
+        <div class="input-wrapper w-100">
+          <textarea id="inputField" name="" class="border-0  mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+        </div>
+      </div>
+    </div>
+
       {% for post in posts %}
         <article class="media content-section">
           <div class="media-body">
@@ -37,4 +47,13 @@
       {% endfor %}
     </div>
   </div>
+
+  <script>
+    function resizeTextarea() {
+        const inputField = document.getElementById('inputField');
+        inputField.style.height = 'auto';
+        inputField.style.height = (inputField.scrollHeight) + 'px';
+    }
+    window.addEventListener('load', resizeTextarea);
+  </script>
 {% endblock content %}

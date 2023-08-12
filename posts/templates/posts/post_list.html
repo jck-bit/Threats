@@ -62,7 +62,6 @@
     </article>
     {% endfor %}
 </div>
-{% compress js inline %}
 <script>
   // JavaScript for handling the follow action
   document.querySelectorAll('.follow-btn').forEach(button => {
@@ -91,5 +90,4 @@
       });
   });
 </script>
-{% endcompress %}
 {%endblock%}
