@@ -10,7 +10,17 @@ body {
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
+
   
+  .parent_input {
+    border-top: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+  }
+  
+textarea:focus{
+  outline: none;
+}
   ul {
     margin: 0;
   }
