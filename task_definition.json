@@ -2,7 +2,7 @@
     "executionRoleArn": "arn:aws:iam::123456789:role/EcsGaRole",
     "containerDefinitions": [{
       "name": "django_app",
-      "image": "dkr.ecr.eu-west-2.amazonaws.com/ci_cd",
+      "image": "public.ecr.aws/h7u5y0m2/ci_cd", 
       "memory": "2048",
       "essential": true,
       "portMappings": [{
@@ -18,3 +18,4 @@
     "memory": "2048",
     "cpu": "1024"
   }
+  
