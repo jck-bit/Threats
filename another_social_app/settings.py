@@ -33,7 +33,6 @@ SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition88.95mb which exceeds the maximum size limit of 50mb
 
 INSTALLED_APPS = [
