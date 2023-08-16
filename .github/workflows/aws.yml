@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: ci_cd
+  ECR_REPOSITORY: django_app
   ECS_SERVICE: django_app
   ECS_CLUSTER: django-app-001
   ECS_TASK_DEFINITION: ./task_definition.json
