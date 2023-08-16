@@ -5,13 +5,13 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: northeast-1
   ECR_REPOSITORY: django_app
-  ECS_SERVICE: service_1
-  ECS_CLUSTER: django-app-001
+  ECS_SERVICE: django_app
+  ECS_CLUSTER: django-app
   ECS_TASK_DEFINITION: ./task-definition.json
   CONTAINER_NAME: django_app
-  IMAGE_NAME: 436844035737.dkr.ecr.us-east-1.amazonaws.com/django_app
+  IMAGE_NAME: 436844035737.dkr.ecr.ap-northeast-1.amazonaws.com/django_app
 
 permissions:
   contents: read
