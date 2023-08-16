@@ -11,6 +11,7 @@ env:
   ECS_CLUSTER: django-app-001
   ECS_TASK_DEFINITION: ./task_definition.json
   CONTAINER_NAME: django_app
+  IMAGE_NAME: 436844035737.dkr.ecr.us-east-1.amazonaws.com/django_app
 
 permissions:
   contents: read
@@ -58,7 +59,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
+        image: ${{ env.IMAGE_NAME }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
