@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: northeast-1
+  AWS_REGION: ap-northeast-1
   ECR_REPOSITORY: django_app
   ECS_SERVICE: django_app
   ECS_CLUSTER: django-app
