@@ -1,21 +1,84 @@
 {
-    "executionRoleArn": "arn:aws:iam::123456789:role/EcsGaRole",
-    "containerDefinitions": [{
-      "name": "django_app",
-      "image": "public.ecr.aws/h7u5y0m2/ci_cd", 
-      "memory": "2048",
-      "essential": true,
-      "portMappings": [{
-        "containerPort": 80,
-        "protocol": "tcp"
-      }]
-    }],
-    "volumes": [],
-    "requiresCompatibilities": ["FARGATE"],
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:436844035737:task-definition/django_app:1",
+    "containerDefinitions": [
+        {
+            "name": "django_app",
+            "image": "436844035737.dkr.ecr.us-east-1.amazonaws.com/django_app",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "django_app-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/django_app",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            }
+        }
+    ],
+    "family": "django_app",
+    "executionRoleArn": "arn:aws:iam::436844035737:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
     "placementConstraints": [],
-    "family": "application-stack",
-    "memory": "2048",
-    "cpu": "1024"
-  }
-  
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "4096",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2023-08-16T17:51:00.489Z",
+    "registeredBy": "arn:aws:iam::436844035737:root",
+    "tags": []
+}
