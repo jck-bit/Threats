@@ -59,12 +59,12 @@
     ],
     "placementConstraints": [],
     "memory": "1024",
-    "taskRoleArn": null,
+    "taskRoleArn": "arn:aws:iam::436844035737:role/ecsTaskExecutionRole",
     "compatibilities": [
       "EC2",
       "FARGATE"
     ],
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:436844035737:task-definition/django_app:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:436844035737:task-definition/django_app:3",
     "family": "django_app",
     "requiresAttributes": [
       {
@@ -95,6 +95,12 @@
         "targetId": null,
         "targetType": null,
         "value": null,
+        "name": "com.amazonaws.ecs.capability.task-iam-role"
+      },
+      {
+        "targetId": null,
+        "targetType": null,
+        "value": null,
         "name": "ecs.capability.execution-role-ecr-pull"
       },
       {
@@ -115,12 +121,9 @@
       "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "runtimePlatform": {
-      "operatingSystemFamily": "LINUX",
-      "cpuArchitecture": null
-    },
+    "runtimePlatform": null,
     "cpu": "512",
-    "revision": 1,
+    "revision": 3,
     "status": "ACTIVE",
     "inferenceAccelerators": null,
     "proxyConfiguration": null,

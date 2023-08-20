@@ -5,9 +5,9 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: ap-northeast-1
+  AWS_REGION: us-east-1 
   ECR_REPOSITORY: django_app
-  ECS_SERVICE: django_app
+  ECS_SERVICE: django_app3
   ECS_CLUSTER: django-app
   ECS_TASK_DEFINITION: ./task-definition.json
   CONTAINER_NAME: django_app
