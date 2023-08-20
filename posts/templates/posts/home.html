@@ -10,7 +10,7 @@
                 <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
               </a>
                 <textarea id="inputField" name="caption" class="border-0 mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
-                <button type="submit" class="btn btn-success ml-2">Post</button>
+                <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
             </div>
         </div>
     </form>
@@ -58,17 +58,5 @@
         inputField.style.height = (inputField.scrollHeight) + 'px';
     }
     window.addEventListener('load', resizeTextarea);
-    function createPost() {
-        const caption = document.getElementById('inputField').value;
-
-        if (caption.trim() !== '') {
-            const postContainer = document.createElement('article');
-            postContainer.className = 'media content-section';
-            const containerElement = document.querySelector('.container-element');
-            containerElement.appendChild(postContainer);
-            document.getElementById('inputField').value = '';
-            resizeTextarea();
-        }
-    }
   </script>
 {% endblock content %}
