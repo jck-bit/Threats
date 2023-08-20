@@ -10,7 +10,7 @@
                 <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
               </a>
                 <textarea id="inputField" name="caption" class="border-0 mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
-                <button type="submit" class="btn btn-success ml-2" id="createPostBtn">Post</button>
+                <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
             </div>
         </div>
     </form>
@@ -56,6 +56,9 @@
         const inputField = document.getElementById('inputField');
         inputField.style.height = 'auto';
         inputField.style.height = (inputField.scrollHeight) + 'px';
+
+        const submitButton = document.getElementById('submitButton');
+        submitButton.disabled = inputField.value.trim() === '';
     }
     window.addEventListener('load', resizeTextarea);
 
