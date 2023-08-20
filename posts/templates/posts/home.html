@@ -2,15 +2,18 @@
 {% block content %}
   <div class="whole_home">
    <div class="container-element">
-
-    <div class="parent_input">
-      <div class="user_post m-2">
-        <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
-        <div class="input-wrapper w-100">
-          <textarea id="inputField" name="" class="border-0  mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+    <form method="post" id="createPostForm" action="{% url 'post-upload' %}">
+        {% csrf_token %}
+        <div class="parent_input">
+            <div class="user_post m-2 d-flex align-items-center">
+              <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
+                <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
+              </a>
+                <textarea id="inputField" name="caption" class="border-0 mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+                <button type="submit" class="btn btn-success ml-2">Post</button>
+            </div>
         </div>
-      </div>
-    </div>
+    </form>
 
       {% for post in posts %}
         <article class="media content-section">
@@ -55,5 +58,17 @@
         inputField.style.height = (inputField.scrollHeight) + 'px';
     }
     window.addEventListener('load', resizeTextarea);
+    function createPost() {
+        const caption = document.getElementById('inputField').value;
+
+        if (caption.trim() !== '') {
+            const postContainer = document.createElement('article');
+            postContainer.className = 'media content-section';
+            const containerElement = document.querySelector('.container-element');
+            containerElement.appendChild(postContainer);
+            document.getElementById('inputField').value = '';
+            resizeTextarea();
+        }
+    }
   </script>
 {% endblock content %}
