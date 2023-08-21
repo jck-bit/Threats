@@ -12,13 +12,13 @@
                 <textarea id="inputField" name="caption" class="border-0 mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
             </div>
             <section class="d-flex pb-2">
-              <div>
+              <div class="p-2">
                 <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
-                  <label for="imageInput" class="btn btn-primary"><i class="fa fa-image"></i> Choose Image</label>
+                  <label for="imageInput" class="primary" style="cursor: pointer; color: #28a745;;"><i class="fa fa-image"></i></label>
                   <span id="selectedImageLabel"></span>
-                  <img id="imagePreview" src="" alt="Image Preview" style="max-width: 100%; max-height: 200px; display: none;">
+                  <img id="imagePreview" src="" alt="Image Preview" style="width: 100%; height: 200px;object-fit: cover; display: none;">
                </div>
-               <div class="ms-auto p-2">
+               <div class="ms-auto" style="margin-right: 5px;">
                  <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
                </div>
             </section>
@@ -72,7 +72,6 @@
     }
     window.addEventListener('load', resizeTextarea);
 
-
     const imageInput = document.getElementById('imageInput');
     const selectedImageLabel = document.getElementById('selectedImageLabel');
     const imagePreview = document.getElementById('imagePreview');
@@ -93,7 +92,6 @@
             imagePreview.style.display = 'none';
         }
     });
-
 
   </script>
 {% endblock content %}
