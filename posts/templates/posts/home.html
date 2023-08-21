@@ -9,11 +9,18 @@
               <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
                 <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
               </a>
-
                 <textarea id="inputField" name="caption" class="border-0 mt-3" placeholder="Say something..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
             </div>
-            <input type="file" name="image" accept="image/*" style="display: block; margin-top: 10px;">
-            <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
+            <section class="d-flex pb-2">
+              <div>
+                <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
+                <label for="imageInput" class="btn btn-primary"><i class="fa fa-image"></i>image</label>
+                <span id="selectedImageLabel"></span>
+               </div>
+               <div class="ms-auto p-2">
+                 <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
+               </div>
+            </section>
         </div>
     </form>
 
@@ -69,5 +76,17 @@
         document.getElementById('createPostForm').style.display = 'block';
         createPostBtn.style.display = 'none';
     });
+
+    const imageInput = document.getElementById('imageInput');
+    const selectedImageLabel = document.getElementById('selectedImageLabel');
+
+    imageInput.addEventListener('change', () => {
+        if (imageInput.files.length > 0) {
+            selectedImageLabel.innerHTML = '<i class="fa fa-image"></i> Image selected';
+        } else {
+            selectedImageLabel.innerHTML = '';
+        }
+    });
+
   </script>
 {% endblock content %}
