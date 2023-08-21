@@ -14,8 +14,9 @@
             <section class="d-flex pb-2">
               <div>
                 <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
-                <label for="imageInput" class="btn btn-primary"><i class="fa fa-image"></i>image</label>
-                <span id="selectedImageLabel"></span>
+                  <label for="imageInput" class="btn btn-primary"><i class="fa fa-image"></i> Choose Image</label>
+                  <span id="selectedImageLabel"></span>
+                  <img id="imagePreview" src="" alt="Image Preview" style="max-width: 100%; max-height: 200px; display: none;">
                </div>
                <div class="ms-auto p-2">
                  <button type="submit" class="btn btn-success ml-2" id="submitButton">Post</button>
@@ -71,22 +72,28 @@
     }
     window.addEventListener('load', resizeTextarea);
 
-    const createPostBtn = document.getElementById('createPostBtn');
-    createPostBtn.addEventListener('click', () => {
-        document.getElementById('createPostForm').style.display = 'block';
-        createPostBtn.style.display = 'none';
-    });
 
     const imageInput = document.getElementById('imageInput');
     const selectedImageLabel = document.getElementById('selectedImageLabel');
+    const imagePreview = document.getElementById('imagePreview');
 
     imageInput.addEventListener('change', () => {
-        if (imageInput.files.length > 0) {
+        const selectedFile = imageInput.files[0];
+        if (selectedFile) {
             selectedImageLabel.innerHTML = '<i class="fa fa-image"></i> Image selected';
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(selectedFile);
         } else {
             selectedImageLabel.innerHTML = '';
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
         }
     });
+
 
   </script>
 {% endblock content %}
