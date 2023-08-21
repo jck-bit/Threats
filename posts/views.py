@@ -1,3 +1,4 @@
+from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from . models import Post,LikePost
 from django.contrib.auth.decorators import login_required
@@ -5,7 +6,7 @@ from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 @login_required
 def home(request):
@@ -66,7 +67,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
+    
+    def form_invalid(self, form: BaseModelForm) -> HttpResponse:
+        return super().form_invalid(self.get_context_data(form=form))
 
 @login_required
 def  like_post(request):
