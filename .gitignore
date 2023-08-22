@@ -1,5 +1,6 @@
-*.sqlite3
 *.db
 .env
 __pycache__
 media
+Pipfile
+Pipfile.lock

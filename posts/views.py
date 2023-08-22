@@ -1,12 +1,13 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
-from . models import Post,LikePost
+from . models import Post,LikePost,Comment
 from django.contrib.auth.decorators import login_required
 from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
 
 @login_required
 def home(request):
@@ -98,3 +99,21 @@ def  like_post(request):
         'likes_count': post.no_of_likes
     }
     return JsonResponse(data)
+
+def create_comment(request,post_id, parent_id=None):
+    if request.method == 'POST':
+       post = get_object_or_404(Post, id=post_id)
+       text = request.POST.get('comment_text')
+       author = request.user
+
+       if parent_id:  #if parent_id is provided, then its a reply to a comment
+           parent = get_object_or_404(Comment, id=parent_id)
+           comment = Comment.objects.create(post=post,
+                                             text=text, author=author, parent=parent)
+           
+       else:  #if parent_id is not provided, then its a comment on a post
+           comment = Comment.objects.create(post=post,
+                                             text=text, author=author)
+           
+       comment.save()
+       return redirect('post-detail', post.id)
