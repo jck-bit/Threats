@@ -17,7 +17,7 @@
           </div>
           <p class="article-content">{{ object.caption }}</p>
         </div>
-        <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+        <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
           <i class="fa-solid fa-heart"></i>
           <span>{{ post.no_of_likes }}</span>
       </section>
@@ -25,19 +25,18 @@
 
         <form method="post" action="{% url 'create-comment' post.id %}">
           {% csrf_token %}
-          <input type="hidden" name="parent_id" value="">
-          <div class="user_post m-2 d-flex align-items-center border-bottom">
+          <div class="user_post d-flex align-items-center border-bottom">
               <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
                   <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
               </a>
-              <textarea name="comment_text" class="border-0 mt-3" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
-              <button type="submit" class="btn btn-primary ml-2">Comment</button>
+              <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+              <button type="submit" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
           </div>
       </form>
       
-
         {% for comment in object.comments.all %}
-          <div class="comment d-flex align-items-center">
+        <main class="border-bottom">
+          <div class="comment d-flex align-items-center pt-2">
             <a href="{% url 'profile-view' pk=comment.author.pk%}" style="text-decoration: none;">
              <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
              {{ comment.author.username }}
@@ -51,6 +50,7 @@
               <!-- <i class="fa-solid fa-heart"></i> -->
             </div>
           </section>
+        </main>
           {% for reply in comment.replies.all %}
             <div class="reply">
               <strong>{{ reply.author.username }}</strong>: {{ reply.text }}

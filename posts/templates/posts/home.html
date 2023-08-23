@@ -2,7 +2,7 @@
 {% block content %}
   <div class="whole_home">
    <div class="container-element">
-    <form method="post" id="createPostForm" action="{% url 'post-upload' %}" enctype="multipart/form-data">
+    <form method="post" id="createPostForm" action="{% url 'post-upload' %}" enctype="multipart/form-data" class="mb-2 border-bottom">
         {% csrf_token %}
         <div class="parent_input">
             <div class="user_post m-2 d-flex align-items-center">
@@ -14,7 +14,7 @@
             <section class="d-flex pb-2">
               <div class="p-2">
                 <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
-                  <label for="imageInput" class="primary" style="cursor: pointer; color: #28a745;;"><i class="fa fa-image"></i></label>
+                  <label for="imageInput" class="primary" style="cursor: pointer; color: #28a745;"><i class="fa fa-image"></i></label>
                   <span id="selectedImageLabel"></span>
                   <img id="imagePreview" src="" alt="Image Preview" style="width: 100%; height: 200px;object-fit: cover; display: none;">
                </div>
