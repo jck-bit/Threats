@@ -31,6 +31,7 @@ def home(request):
 class PostDetailView(DetailView):
     model = Post
 
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['caption', 'image']
@@ -117,3 +118,12 @@ def create_comment(request,post_id, parent_id=None):
            
        comment.save()
        return redirect('post-detail', post.id)
+
+#we get the detailview of the comment and then we get the post it was replying to and the replies below it
+
+def get_detailview_of_comment(request,post_id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    post = get_object_or_404(Post, id=post_id)
+    replies = comment.replies.all()
+    
+    return render(request, 'posts/comment_detail.html', {'comment': comment, 'post': post, 'replies': replies})

@@ -1,0 +1,44 @@
+{% extends "posts/base.html" %}
+{% block content %}
+<article class="media content-section">
+ <div class="divide d-flex">
+    <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
+        <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+        <div class="line-vertical"></div>
+      </a>
+    <main>
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
+        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+      </div>
+      <p class="article-content">{{ post.caption }}</p>
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
+      {% endif %}
+    </div>
+    </main>
+</div>
+<div class="comment-section">
+    <div class="d-flex">
+        <a class="mr-1" href="{% url 'profile-view' pk=comment.author.pk %}" style="text-decoration: none;">
+            <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
+        </a>
+      <main>
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ comment.author }}</a>
+                <small class="text-muted">{{ comment.created_at|date:"F d, Y" }}</small>
+            </div>
+            <p class="article-content">{{ comment.text }}</p>
+        </div>
+    {% for reply in replies %}
+        <div class="reply">
+            <!-- Replies to comments will come here -->
+        </div>
+    {% endfor %}
+      </main>
+    </div>
+</div>
+  </article>
+{% endblock content %}~

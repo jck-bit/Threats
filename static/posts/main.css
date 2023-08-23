@@ -89,7 +89,13 @@ textarea:focus{
     border: 1px solid  #e3e3e3;
     color: #333;
   }
-  
+ .line-vertical {
+    width: 1px;
+    height: 95%;
+    background-color: #ccc;
+    margin-left: 20px;
+  }
+
   .p-content {
     text-decoration: none;
   }
@@ -139,7 +145,7 @@ textarea:focus{
   .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3;
+    /* border-bottom: 1px solid #e3e3e3; */
   }
   
   .article-metadata a:hover {

@@ -43,6 +43,7 @@
             </a>
             <small class="text-muted m-2">{{ comment.created_at | date:"F d, Y" }}</small>
           </div>
+          <a href="{% url 'comment-detail' post.id comment.id%}">
           <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
             <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
               <p class="article-content">{{ comment.text }}</p>
@@ -50,6 +51,7 @@
               <!-- <i class="fa-solid fa-heart"></i> -->
             </div>
           </section>
+          </a>
         </main>
           {% for reply in comment.replies.all %}
             <div class="reply">
