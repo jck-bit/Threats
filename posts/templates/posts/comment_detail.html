@@ -1,7 +1,7 @@
 {% extends "posts/base.html" %}
 {% block content %}
 <article class="media content-section">
- <div class="divide d-flex">
+ <small class="divide d-flex " style="color: #ccc; font-size: .9rem;">
     <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
         <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
         <div class="line-vertical"></div>
@@ -18,7 +18,7 @@
       {% endif %}
     </div>
     </main>
-</div>
+ </small>
 <div class="comment-section">
     <div class="d-flex">
         <a class="mr-1" href="{% url 'profile-view' pk=comment.author.pk %}" style="text-decoration: none;">
@@ -41,4 +41,4 @@
     </div>
 </div>
   </article>
-{% endblock content %}~
+{% endblock content %}

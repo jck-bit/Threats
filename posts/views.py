@@ -4,8 +4,6 @@ from . models import Post,LikePost,Comment
 from django.contrib.auth.decorators import login_required
 from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib import messages
-from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 
