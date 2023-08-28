@@ -27,35 +27,37 @@
 
       {% for post in posts %}
         <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata p-2 d-flex align-items-center">
-              <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">
-                <img class="rounded-circle article-img" src="{{post.user.profile.image.url}}" alt="">
-                {{ post.user }}
-              </a>
-              <small class="text-muted m-2">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
-            <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: #fff">
-              <p class="article-content">{{ post.caption }}</p>
+          <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
+            <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
+                <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
             </a>
-            {% if post.image %}
-              <div class="image-container">
-                <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+            <main>
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
               </div>
-            {% endif %}
-          </div>
-          <div class="d-flex align-items-center flex-start">
-            <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
-            <span class="p-2">
-              <i class="fa fa-comment"></i>
-              <span style="text-decoration: none;">{{post.comments.count}}</span>
-            </span>
-            </a>
-            <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
-                <i class="fa-solid fa-heart"></i>
-                <span>{{ post.no_of_likes }}</span>
-            </section>
-          </div>
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
+                <p class="article-content">{{ post.caption }}</p>
+              </a>
+              {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
+              {% endif %}
+            </div>
+            <div class="d-flex align-items-center flex-start">
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
+              <span class="p-2">
+                <i class="fa fa-comment"></i>
+                <span style="text-decoration: none;">{{post.comments.count}}</span>
+              </span>
+              </a>
+              <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
+                  <i class="fa-solid fa-heart"></i>
+                  <span>{{ post.no_of_likes }}</span>
+              </section>
+            </div>
+            </main>
+          </section>
         </article>
       {% endfor %}
     </div>

@@ -17,6 +17,18 @@
         <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
       {% endif %}
     </div>
+    <div class="d-flex align-items-center flex-start">
+      <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
+      <span class="p-2">
+        <i class="fa fa-comment"></i>
+        <span style="text-decoration: none;">{{post.comments.count}}</span>
+      </span>
+      </a>
+      <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
+          <i class="fa-solid fa-heart"></i>
+          <span>{{ post.no_of_likes }}</span>
+      </section>
+    </div>
     </main>
  </small>
 <div class="comment-section">

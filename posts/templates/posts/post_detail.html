@@ -1,33 +1,37 @@
 {% extends "posts/base.html" %}
 {% block content %}
     <article class="media content-section border-bottom-0">
+      <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
+        <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
+            <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+        </a>
+        <main>
         <div class="media-body">
-          <div class="article-metadata p-2">
-            <a class="mr-1" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
-              <img class="rounded-circle article-img" src="{{ object.user.profile.image.url }}" alt="">
-              {{ object.user }}
-            </a>
-            <small class="text-muted m-2">{{ object.date_posted | date:"F d, Y" }}</small>
-            {% if object.user == user %}
-              <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">edit</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
-              </div>
-            {% endif %}
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
           </div>
-          <p class="article-content">{{ object.caption }}</p>
+          <p class="article-content">{{ post.caption }}</p>
+          {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
+          {% endif %}
         </div>
-        {% if post.image %}
-              <div class="image-container">
-                <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
-              </div>
-            {% endif %}
-        <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
-          <i class="fa-solid fa-heart"></i>
-          <span>{{ post.no_of_likes }}</span>
+        <div class="d-flex align-items-center flex-start">
+          <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
+          <span class="p-2">
+            <i class="fa fa-comment"></i>
+            <span style="text-decoration: none;">{{post.comments.count}}</span>
+          </span>
+          </a>
+          <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
+              <i class="fa-solid fa-heart"></i>
+              <span>{{ post.no_of_likes }}</span>
+          </section>
+        </div>
+        </main>
       </section>
       <div class="comments-section border-top" style="padding-top: 5px;">
-
+        <!-- form for comment -->
         <form method="post" action="{% url 'create-comment' post.id %}">
           {% csrf_token %}
           <div class="user_post d-flex align-items-center border-bottom">
@@ -37,27 +41,34 @@
               <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
               <button type="submit" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
           </div>
-      </form>
+        </form>
+
+        <!-- comment section -->
       
         {% for comment in object.comments.all %}
-        <main class="border-bottom">
-          <div class="comment d-flex align-items-center pt-2">
-            <a href="{% url 'profile-view' pk=comment.author.pk%}" style="text-decoration: none;">
-             <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
-             {{ comment.author.username }}
-            </a>
-            <small class="text-muted m-2">{{ comment.created_at | date:"F d, Y" }}</small>
-          </div>
-          <a href="{% url 'comment-detail' post.id comment.id%}">
-          <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
-            <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
-              <p class="article-content">{{ comment.text }}</p>
-              <span>{{ comment.likes_count }}</span>
-              <!-- <i class="fa-solid fa-heart"></i> -->
-            </div>
-          </section>
+
+        <section class="divide d-flex border-bottom" style="color: #ccc; font-size: .9rem; margin-top: 1rem;">
+          <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
+              <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
           </a>
-        </main>
+          <main>
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ post.user }}</a>
+              <small class="text-muted">{{ comment.created_at | date:"F d, Y" }}</small>
+            </div>
+            <a href="{% url 'comment-detail' post.id comment.id%}">
+              <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
+                <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
+                  <p class="article-content">{{ comment.text }}</p>
+                  <span>{{ comment.likes_count }}</span>
+                  <!-- <i class="fa-solid fa-heart"></i> -->
+                </div>
+              </section>
+              </a>
+          </main>
+        </section>
+
           {% for reply in comment.replies.all %}
             <div class="reply">
               <strong>{{ reply.author.username }}</strong>: {{ reply.text }}
