@@ -26,6 +26,7 @@
     </form>
 
       {% for post in posts %}
+      <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
         <article class="media content-section">
           <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
             <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
@@ -59,6 +60,7 @@
             </main>
           </section>
         </article>
+      </a>
       {% endfor %}
     </div>
   </div>
