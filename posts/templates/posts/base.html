@@ -14,7 +14,6 @@
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/sketchy/bootstrap.min.css"rel="stylesheet">
 
-
     {% if title %}
         <title>Django social App - {{ title }}</title>
     {% else %}
@@ -57,10 +56,41 @@
             </div>
         </div>
     </nav>
-    <main role="main" class="container w-100 mt-4">
-        <div class="row d-flex justify-content-between w-100">
+
+    <style>
+        @media (max-width: 991.98px) { 
+            .custom-container {
+                width: 100%;
+                max-width: 100%;
+                padding-left: 10%; 
+                padding-right: 10%; 
+            }
+        }
+
+        @media (min-width: 992px) { 
+            .custom-container {
+            width: 100%;
+            max-width: 100%;
+
+           }
+            .custom-row{
+                width: 100%;
+                padding-left: 15%;
+                padding-right: 15%;
+                margin: 0 auto;
+            }
+            .custom-column{
+                margin: 0 auto;
+                padding-left: 15%;
+                padding-right: 10%;
+            }
+        }
+    </style>
+
+    <main role="main" class="container  mt-4 custom-container">
+        <div class="row d-flex justify-content-between custom-row">
             <!-- Center - Main Content Block -->
-            <div class="col-md-9">
+            <div class="col-md-9 custom-column">
                 {% if messages %}
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">
@@ -75,15 +105,15 @@
 
             <!-- Right Side - Suggestions Card -->
             {% if user.is_authenticated %}
-<div class="col-md-3">
-    <div class="card mt-4">
-        <div class="card-body">
-            <h5 class="card-title text-center">Suggestions for You</h5>
-            {% include 'users/suggested_users.html' %}
-        </div>
-    </div>
-</div>
-{% endif %}
+                <div class="col-md-3">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Suggestions for You</h5>
+                            {% include 'users/suggested_users.html' %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </main>
 

@@ -29,7 +29,7 @@ urlpatterns = [
     path('profile/<int:pk>/', user_views.ProfileView.as_view(template_name='users/profile'), name='profile-view'),
     path('suggested-users/', user_views.suggested_users, name='suggested_users'),
     path('follow-user/<int:pk>/', user_views.follow_user, name='follow-user'),
-    #path to follow user
+    
     
     path('', include('posts.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
@@ -37,5 +37,4 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
