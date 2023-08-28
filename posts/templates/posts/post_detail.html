@@ -17,6 +17,11 @@
           </div>
           <p class="article-content">{{ object.caption }}</p>
         </div>
+        {% if post.image %}
+              <div class="image-container">
+                <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+              </div>
+            {% endif %}
         <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
           <i class="fa-solid fa-heart"></i>
           <span>{{ post.no_of_likes }}</span>
