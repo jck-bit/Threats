@@ -31,7 +31,6 @@
         </main>
       </section>
       <div class="comments-section border-top" style="padding-top: 5px;">
-
         <!-- form for comment -->
         <form method="post" action="{% url 'create-comment' post.id %}">
           {% csrf_token %}
@@ -40,39 +39,47 @@
                   <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
               </a>
               <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
-              <button type="submit" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;" id="submitButton">post</button>
+              <button type="submit" id="submitButton" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
           </div>
         </form>
-
-        <!-- comment section -->
       
         {% for comment in object.comments.all %}
-
         <section class="divide d-flex border-bottom" style="color: #ccc; font-size: .9rem; margin-top: 1rem;">
-          <a class="" href="{% url 'profile-view' pk=post.user.pk %}" style="text-decoration: none;">
-              <img class="rounded-circle article-img" src="{{ post.user.profile.image.url }}" alt="">
+          <a class="" href="{% url 'profile-view' pk=comment.author.pk %}" style="text-decoration: none;">
+              <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
           </a>
           <main>
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ post.user }}</a>
+              <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ comment.author }}</a>
               <small class="text-muted">{{ comment.created_at | date:"F d, Y" }}</small>
             </div>
             <a href="{% url 'comment-detail' post.id comment.id%}">
               <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
                 <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
                   <p class="article-content">{{ comment.text }}</p>
-                  <span>{{ comment.likes_count }}</span>
-                  <!-- <i class="fa-solid fa-heart"></i> -->
+
+                  <div class="d-flex align-items-center flex-start">
+                    <a href="#" style="text-decoration: none;">
+                      <span class="p-2">
+                        <i class="fa fa-comment"></i>
+                        <span style="text-decoration: none;">{{comment.replies.count}}</span>
+                      </span>
+                      </a>
+                      <section class="like-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ com.id }}" style="cursor: pointer;">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>{{ comment.likes.count }}</span>
+                    </section>
+                  </div>
                 </div>
               </section>
-              </a>
+            </a>
           </main>
         </section>
 
-          {% for reply in comment.replies.all %}
+        <!-- replies to the comments -->
+          <!-- {% for reply in comment.replies.all %}
             <div class="reply">
-              <strong>{{ reply.author.username }}</strong>: {{ reply.text }}
               <button class="like-comment-link m-2 {% if reply.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ reply.id }}">
                 <div class="liked_div {% if reply.is_liked_by_user %}liked{% endif %}">
                   <i class="fa fa-comment"></i>
@@ -80,8 +87,8 @@
                 </div>
               </button>
             </div>
-          {% endfor %}
-        {% endfor %}
+          {% endfor %} -->
+        {% endfor %} 
       </div>
       </article>
     <script>
@@ -89,10 +96,8 @@
         const inputField = document.getElementById('inputField');
         inputField.style.height = 'auto';
         inputField.style.height = (inputField.scrollHeight) + 'px';
-
         const submitButton = document.getElementById('submitButton');
         submitButton.disabled = inputField.value.trim() === '';
-
     }
     window.addEventListener('load', resizeTextarea);
     </script>

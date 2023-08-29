@@ -44,13 +44,42 @@
             </div>
             <p class="article-content">{{ comment.text }}</p>
         </div>
-    {% for reply in replies %}
         <div class="reply">
             <!-- Replies to comments will come here -->
+            <form method="post" action="{% url 'create-comment-reply' post.id comment.id %}">
+              {% csrf_token %}
+              <div class="user_post d-flex align-items-center border-bottom">
+                  <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
+                      <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
+                  </a>
+                  <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+                  <button type="submit" id="submitButton" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
+              </div>
+            </form>
         </div>
-    {% endfor %}
+        <div class="replies-section">
+          <div class="replies-section">
+            <h3>Replies:</h3>
+            {% for reply in replies %}
+                <p>{{ reply.text }}</p>
+            {% empty %}
+                <p>No replies yet.</p>
+            {% endfor %}
+        </div>
+        
+      </div>
       </main>
     </div>
 </div>
   </article>
+  <script>
+    function resizeTextarea() {
+      const inputField = document.getElementById('inputField');
+      inputField.style.height = 'auto';
+      inputField.style.height = (inputField.scrollHeight) + 'px';
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = inputField.value.trim() === '';
+  }
+  window.addEventListener('load', resizeTextarea);
+  </script>
 {% endblock content %}
