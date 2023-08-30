@@ -1,11 +1,12 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
-from . models import Post,LikePost,Comment
+from . models import Post,LikePost,Comment,Reply
 from django.contrib.auth.decorators import login_required
 from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView,CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
+from .forms import  ReplyForm
 
 @login_required
 def home(request):
@@ -28,7 +29,7 @@ def home(request):
 
 class PostDetailView(DetailView):
     model = Post
-
+   
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -104,26 +105,29 @@ def create_comment(request,post_id, parent_id=None):
        post = get_object_or_404(Post, id=post_id)
        text = request.POST.get('comment_text')
        author = request.user
-
-       if parent_id:  #if parent_id is provided, then its a reply to a comment
-           parent = get_object_or_404(Comment, id=parent_id)
-           comment = Comment.objects.create(post=post,
-                                             text=text, author=author, parent=parent)
            
-           return redirect('comment-detail', post_id, parent_id)
-           
-       else:  #if parent_id is not provided, then its a comment on a post
-           comment = Comment.objects.create(post=post,
+       comment = Comment.objects.create(post=post,
                                              text=text, author=author)
            
        comment.save()
        return redirect('post-detail', post.id)
 
-#we get the detailview of the comment and then we get the post it was replying to and the replies below it
-
 def get_detailview_of_comment(request,post_id, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     post = get_object_or_404(Post, id=post_id)
-    replies = comment.replies.all()
+    replies = Reply.objects.filter(comment=comment).order_by('-created_at')
     
     return render(request, 'posts/comment_detail.html', {'comment': comment, 'post': post, 'replies': replies})
+
+def create_reply(request, post_id, comment_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id)
+        text = request.POST.get('comment_text')
+        author = request.user
+        
+
+        reply = Reply.objects.create(comment=comment, text=text, author=author)
+      
+        reply.save()
+        return redirect('comment-detail', post_id=post.id, comment_id=comment.id)

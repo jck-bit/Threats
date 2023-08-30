@@ -48,7 +48,8 @@
     </div>
   </div>
   <div class="reply">
-    <form method="post" action="{% url 'create-comment-reply' post.id comment.id %}">
+
+    <form method="post" action="{% url 'create-reply' post.id comment.id %}">
       {% csrf_token %}
       <div class="user_post d-flex align-items-center border-bottom">
           <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
@@ -57,14 +58,15 @@
           <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
           <button type="submit" id="submitButton" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
       </div>
-    </form>
+  </form>
+  
   </div>
   <div class="replies-section mt-2">
-        {% for reply in replies %}
-    <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
-      <a class="" href="{% url 'profile-view' pk=reply.author.pk %}" style="text-decoration: none;">
-        <img class="rounded-circle article-img" src="{{ reply.author.profile.image.url }}" alt="">
-      </a>
+    {% for reply in replies %}
+      <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
+        <a class="" href="{% url 'profile-view' pk=reply.author.pk %}" style="text-decoration: none;">
+          <img class="rounded-circle article-img" src="{{ reply.author.profile.image.url }}" alt="">
+        </a>
         <main>
           <div class="media-body">
             <div class="article-metadata">
@@ -74,8 +76,8 @@
             <p class="article-content">{{ reply.text }}</p>
           </div>
         </main>
-    </section>
-        {%endfor%}
+      </section>
+    {% endfor %}
   </div>
   </article>
   <script>

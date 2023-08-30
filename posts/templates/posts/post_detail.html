@@ -58,12 +58,14 @@
               <section class="like-comment-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}">
                 <div class="liked_comment {% if comment.is_liked_by_user %}liked{% endif %}">
                   <p class="article-content">{{ comment.text }}</p>
-
+              
                   <div class="d-flex align-items-center flex-start">
                     <a href="#" style="text-decoration: none;">
                       <span class="p-2">
                         <i class="fa fa-comment"></i>
-                        <span style="text-decoration: none;">{{comment.replies.count}}</span>
+                        {% for replies in object.Reply.all %}
+                         <span style="text-decoration: none;">{{replies.count}}</span>
+                        {%endfor%}
                       </span>
                       </a>
                       <section class="like-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}" style="cursor: pointer;">
