@@ -6,7 +6,7 @@ from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from .forms import  ReplyForm
+
 
 @login_required
 def home(request):
