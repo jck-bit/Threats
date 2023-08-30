@@ -110,6 +110,8 @@ def create_comment(request,post_id, parent_id=None):
            comment = Comment.objects.create(post=post,
                                              text=text, author=author, parent=parent)
            
+           return redirect('comment-detail', post_id, parent_id)
+           
        else:  #if parent_id is not provided, then its a comment on a post
            comment = Comment.objects.create(post=post,
                                              text=text, author=author)

@@ -13,16 +13,16 @@
         <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
       </div>
       <p class="article-content">{{ post.caption }}</p>
-      {% if post.image %}
-        <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
-      {% endif %}
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="Post Image" class="post-image" >
+        {% endif %}
     </div>
     <div class="d-flex align-items-center flex-start">
       <a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">
-      <span class="p-2">
-        <i class="fa fa-comment"></i>
-        <span style="text-decoration: none;">{{post.comments.count}}</span>
-      </span>
+        <span class="p-2">
+          <i class="fa fa-comment"></i>
+          <span style="text-decoration: none;">{{post.comments.count}}</span>
+        </span>
       </a>
       <section class="like-link m-2 {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}" style="cursor: pointer;">
           <i class="fa-solid fa-heart"></i>
@@ -31,46 +31,52 @@
     </div>
     </main>
  </small>
-<div class="comment-section">
+ <div class="comment-section">
     <div class="d-flex">
-        <a class="mr-1" href="{% url 'profile-view' pk=comment.author.pk %}" style="text-decoration: none;">
-            <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
-        </a>
+      <a class="" href="{% url 'profile-view' pk=comment.author.pk %}" style="text-decoration: none;">
+          <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
+      </a>
       <main>
         <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ comment.author }}</a>
-                <small class="text-muted">{{ comment.created_at|date:"F d, Y" }}</small>
-            </div>
-            <p class="article-content">{{ comment.text }}</p>
+          <div class="article-metadata">
+              <a class="mr-2" href="{% url 'profile-view' pk=comment.author.pk %}">{{ comment.author }}</a>
+              <small class="text-muted">{{ comment.created_at|date:"F d, Y" }}</small>
+          </div>
+          <p class="article-content">{{ comment.text }}</p>
         </div>
-        <div class="reply">
-            <!-- Replies to comments will come here -->
-            <form method="post" action="{% url 'create-comment-reply' post.id comment.id %}">
-              {% csrf_token %}
-              <div class="user_post d-flex align-items-center border-bottom">
-                  <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
-                      <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
-                  </a>
-                  <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
-                  <button type="submit" id="submitButton" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
-              </div>
-            </form>
-        </div>
-        <div class="replies-section">
-          <div class="replies-section">
-            <h3>Replies:</h3>
-            {% for reply in replies %}
-                <p>{{ reply.text }}</p>
-            {% empty %}
-                <p>No replies yet.</p>
-            {% endfor %}
-        </div>
-        
-      </div>
       </main>
     </div>
-</div>
+  </div>
+  <div class="reply">
+    <form method="post" action="{% url 'create-comment-reply' post.id comment.id %}">
+      {% csrf_token %}
+      <div class="user_post d-flex align-items-center border-bottom">
+          <a class="mr-2" href="{% url 'profile-view' pk=user.pk %}">
+              <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
+          </a>
+          <textarea name="comment_text" id="inputField" class="border-0 mt-4" placeholder="post your comment..." oninput="resizeTextarea()" style="resize: none; display: block; color: black;"></textarea>
+          <button type="submit" id="submitButton" class="btn btn-primary ml-2 border-0" style="background-color: #28a745;">post</button>
+      </div>
+    </form>
+  </div>
+  <div class="replies-section mt-2">
+        {% for reply in replies %}
+    <section class="divide d-flex " style="color: #ccc; font-size: .9rem;">
+      <a class="" href="{% url 'profile-view' pk=reply.author.pk %}" style="text-decoration: none;">
+        <img class="rounded-circle article-img" src="{{ reply.author.profile.image.url }}" alt="">
+      </a>
+        <main>
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'profile-view' pk=post.user.pk %}">{{ post.user }}</a>
+              <small class="text-muted">{{ reply.created_at|date:"F d, Y" }}</small>
+            </div>
+            <p class="article-content">{{ reply.text }}</p>
+          </div>
+        </main>
+    </section>
+        {%endfor%}
+  </div>
   </article>
   <script>
     function resizeTextarea() {

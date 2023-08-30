@@ -66,7 +66,7 @@
                         <span style="text-decoration: none;">{{comment.replies.count}}</span>
                       </span>
                       </a>
-                      <section class="like-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ com.id }}" style="cursor: pointer;">
+                      <section class="like-link m-2 {% if comment.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ comment.id }}" style="cursor: pointer;">
                         <i class="fa-solid fa-heart"></i>
                         <span>{{ comment.likes.count }}</span>
                     </section>
@@ -74,20 +74,9 @@
                 </div>
               </section>
             </a>
+          </div>
           </main>
         </section>
-
-        <!-- replies to the comments -->
-          <!-- {% for reply in comment.replies.all %}
-            <div class="reply">
-              <button class="like-comment-link m-2 {% if reply.is_liked_by_user %}liked{% endif %}" data-comment-id="{{ reply.id }}">
-                <div class="liked_div {% if reply.is_liked_by_user %}liked{% endif %}">
-                  <i class="fa fa-comment"></i>
-                  <span>{{ reply.likes_count }}</span>
-                </div>
-              </button>
-            </div>
-          {% endfor %} -->
         {% endfor %} 
       </div>
       </article>
