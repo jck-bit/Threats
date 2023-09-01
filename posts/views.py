@@ -115,7 +115,7 @@ def  like_post(request):
     }
     return JsonResponse(data)
 
-def create_comment(request,post_id, parent_id=None):
+def create_comment(request,post_id):
     if request.method == 'POST':
        post = get_object_or_404(Post, id=post_id)
        text = request.POST.get('comment_text')
@@ -155,6 +155,10 @@ def get_detailview_of_reply(request, post_id, comment_id, reply_id):
     
     return render(request, 'posts/reply_detail.html', {'reply': reply, 'post': post, 'comment': comment, 'replies': replies})
 
+
+
+
+###This function is not working properly, I am trying to create a nested reply associated with the parent reply, i cant figure it out
 def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, id=post_id)
