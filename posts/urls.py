@@ -12,4 +12,6 @@ urlpatterns = [
     path('post/<int:post_id>/comment/<int:comment_id>/', views.get_detailview_of_comment, name='comment-detail'),
     path('post/<int:post_id>/comment/', views.create_comment, name='create-comment'),
     path('post/<int:post_id>/comment/<int:comment_id>/reply/', views.create_reply, name='create-reply'),
+    path('post/<int:post_id>/comment/<int:comment_id>/reply/<int:reply_id>/', views.get_detailview_of_reply, name='reply-detail'),
+    path('post/<int:post_id>/comment/<int:comment_id>/reply/<int:parent_reply_id>/reply/', views.create_reply_to_another_reply, name='create-reply-to-reply'),
 ]

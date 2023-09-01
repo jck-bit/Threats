@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from . models import Post,LikePost,Comment,Reply
@@ -29,6 +30,20 @@ def home(request):
 
 class PostDetailView(DetailView):
     model = Post
+    template_name = 'posts/post_detail.html'
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context =  super().get_context_data(**kwargs)
+        post = self.object
+        comments_with_replies = []
+
+        for comment in post.comments.all():
+            replies_count = Reply.objects.filter()
+            comment.replies_count = replies_count
+            comments_with_replies.append(comment)
+
+        context['comments_with_replies'] = comments_with_replies
+        return context
    
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -126,8 +141,50 @@ def create_reply(request, post_id, comment_id):
         text = request.POST.get('comment_text')
         author = request.user
         
-
-        reply = Reply.objects.create(comment=comment, text=text, author=author)
-      
+        reply = Reply.objects.create(comment=comment, text=text, author=author, parent_reply=None)
         reply.save()
         return redirect('comment-detail', post_id=post.id, comment_id=comment.id)
+    
+def get_detailview_of_reply(request, post_id, comment_id, reply_id):
+    reply = get_object_or_404(Reply, id=reply_id)
+    post = get_object_or_404(Post, id=post_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    parent_reply = reply.parent_reply
+    replies = Reply.objects.filter(comment=comment, parent_reply=reply).order_by('-created_at')
+    
+    
+    return render(request, 'posts/reply_detail.html', {'reply': reply, 'post': post, 'comment': comment, 'replies': replies})
+
+def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=post_id)
+        comment = get_object_or_404(Comment, id=comment_id)
+        parent_reply = get_object_or_404(Reply, id=parent_reply_id)
+        text = request.POST.get('comment_text')
+        author = request.user
+
+        # Creating a nested reply associated with the parent reply
+        nested_reply = Reply.objects.create(comment=comment, parent_reply=parent_reply, text=text, author=author)
+
+        # Fetch all replies associated with the comment, including nested replies
+        #replies = Reply.objects.filter(comment=comment)
+
+        # Fetch the parent reply associated with the comment
+        parent_reply = Reply.objects.filter(comment=comment, parent_reply=None)
+        nested_reply.save()
+        
+        # Correct usage of reverse in get_detailview_of_reply
+       # Correct usage of reverse in get_detailview_of_reply
+        return redirect('reply-detail', post_id=post.id, comment_id=comment.id, reply_id=nested_reply.id)
+        # return render(request, 'posts/reply_detail.html', {
+        #     'post': post,
+        #     'comment': comment,
+        #     'parent_reply': parent_reply,
+        #     'replies': replies,
+        #     'nested_reply': nested_reply
+        # })
+
+def delete_reply_comment(request, post_id, comment_id, reply_id):
+    reply = get_object_or_404(Reply, id=reply_id)
+    reply.delete()
+    return redirect('comment-detail', post_id=post_id, comment_id=comment_id)
