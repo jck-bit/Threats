@@ -130,7 +130,7 @@ def create_comment(request,post_id, parent_id=None):
 def get_detailview_of_comment(request,post_id, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     post = get_object_or_404(Post, id=post_id)
-    replies = Reply.objects.filter(comment=comment).order_by('-created_at')
+    replies = Reply.objects.filter(comment=comment)
     
     return render(request, 'posts/comment_detail.html', {'comment': comment, 'post': post, 'replies': replies})
 
