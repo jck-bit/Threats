@@ -5,13 +5,15 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: us-east-1 
-  ECR_REPOSITORY: django_app
-  ECS_SERVICE: django_app3
-  ECS_CLUSTER: django-app
-  ECS_TASK_DEFINITION: ./task-definition.json
-  CONTAINER_NAME: django_app
-  IMAGE_NAME: 436844035737.dkr.ecr.ap-northeast-1.amazonaws.com/django_app
+  AWS_REGION: us-east-1                 # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: django-app           # set this to your Amazon ECR repository name
+  ECS_SERVICE: django-app                 # set this to your Amazon ECS service name
+  ECS_CLUSTER:  django-app                 # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
+                                               # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: django-app    
+  IMAGE_NAME:   936578535505.dkr.ecr.us-east-1.amazonaws.com/django-app     # set this to the name of the container in the
+                                               # containerDefinitions section of your task definition
 
 permissions:
   contents: read
@@ -20,25 +22,22 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
-        mask-aws-account-id: 'false'
 
-    - name: Get Docker credentials
+    - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-      with:
-        mask-password: 'true'
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
@@ -51,7 +50,7 @@ jobs:
         # be deployed to ECS.
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def

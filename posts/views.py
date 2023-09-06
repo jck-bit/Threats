@@ -155,9 +155,6 @@ def get_detailview_of_reply(request, post_id, comment_id, reply_id):
     
     return render(request, 'posts/reply_detail.html', {'reply': reply, 'post': post, 'comment': comment, 'replies': replies})
 
-
-
-
 ###This function is not working properly, I am trying to create a nested reply associated with the parent reply, i cant figure it out
 def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id):
     if request.method == 'POST':
@@ -178,7 +175,7 @@ def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id)
         nested_reply.save()
         
         # Correct usage of reverse in get_detailview_of_reply
-       # Correct usage of reverse in get_detailview_of_reply
+       # Correct usage o  vf xreverse in get_detailview_of_reply
         return redirect('reply-detail', post_id=post.id, comment_id=comment.id, reply_id=nested_reply.id)
         # return render(request, 'posts/reply_detail.html', {
         #     'post': post,
