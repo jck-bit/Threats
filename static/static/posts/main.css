@@ -1,0 +1,235 @@
+body {
+    margin-top: 5rem;
+  }
+
+  .whole_home{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+  }
+
+  
+  .parent_input {
+    border-top: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+  }
+  
+textarea:focus{
+  outline: none;
+}
+  ul {
+    margin: 0;
+  }
+  .fw-bold{
+    font-weight: bolder;
+  }
+  /* .bg-steel {
+    background-color: rgba(0, 0, 0, 0.8);
+  } */
+  
+  .site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+
+  .home{
+    color: #333;
+    text-decoration: none;
+    
+  }
+
+  .home:hover{
+    color: rgb(210, 19, 121);
+    text-decoration: none;
+  }
+  a{
+    text-decoration: none !important;
+  }
+
+  .home.liked i.fa-heart {
+    color: rgb(210, 19, 121);
+  }
+
+
+  /* Custom styles for the liked icon */
+.liked  {
+  color:  rgb(249, 24, 128);
+}
+
+.liked .fa-heart:hover{
+  color: rgb(226, 114, 133);
+}  
+  .liked_div span{
+    margin-left: 5px;
+  }
+
+
+  .navbar-nav .nav-item {
+    margin-right: 20px;
+  }
+
+  .container{
+    display: flex;
+  }
+  .content-section {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    border: 1px solid  #e3e3e3;
+    color: #333;
+  }
+ .line-vertical {
+    width: 1px;
+    height: 95%;
+    background-color: #ccc;
+    margin-left: 20px;
+  }
+
+  .p-content {
+    text-decoration: none;
+  }
+
+.profile-user{
+  position: relative;
+  margin-bottom: 10px;
+  padding: 5px;
+  margin: 5px;
+
+}
+  .styled-profile{
+    position: absolute;
+    background-color: #f4ecec;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+.post-image{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+  
+  a.article-title:hover {
+    color: red;
+    text-decoration: none;
+  }
+ 
+  .article-content {
+    white-space: pre-line;
+    color: #333;
+  }
+  
+  .article-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 16px;
+  }
+  
+  .article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    /* border-bottom: 1px solid #e3e3e3; */
+  }
+  
+  .article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+  
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .account-heading {
+    font-size: 2.5rem;
+  }
+
+.follow_section{
+  padding: 20px;
+  border-radius: 5px;
+  height: fit-content;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.68);
+}  
+
+.user-profile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.profile-info{
+  display: flex;
+}
+
+.follow-button{
+  padding: 5px 15px;
+  margin-left: 20px;
+  border-radius:10px;
+  cursor: pointer;
+  border: none;
+}
+
+
+.image-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  /* border-radius: 20px; */
+}
+
+/* CSS for the image to maintain a 16:9 aspect ratio */
+.image-container img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.suggested-user {
+  margin-top: 5px;
+}
+.suggested-user img{
+  border-radius: 50%;
+}
+
+.suggested-user span{
+  margin-right: 5px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+.suggested-user a{
+  text-decoration: none;
+  margin-top: 10px;
+}

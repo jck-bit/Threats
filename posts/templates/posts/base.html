@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
    
-    <link rel="stylesheet" type="text/css" href="{% static 'posts/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'posts/share.css' %}">
-    <script defer src="{% static 'posts/main.js'%}"></script>
-    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
-    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/sketchy/bootstrap.min.css"rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'posts/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'posts/share.css' %}">
+<script defer src="{% static 'posts/main.js' %}"></script>
+<script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/sketchy/bootstrap.min.css"rel="stylesheet">
 
     {% if title %}
         <title>Django social App - {{ title }}</title>
@@ -34,16 +34,14 @@
                             <a class="nav-link" href="{% url 'post-upload' %}">New post</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <img class="rounded-circle article-img" src="{{ user_profile.image.url }}" alt="">
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{% url 'profile' %}" class="nav-link">
-                                <img class="rounded-circle article-img" src="{{user.profile.image.url}}" alt="">
-                            </a>
-                        </li>
+    
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Login</a>

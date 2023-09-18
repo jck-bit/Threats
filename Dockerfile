@@ -1,16 +1,16 @@
-FROM python:3.9-slim
+FROM python:3
 
-RUN apt update && apt install nginx -y
+ENV PYTHONUNBUFFERED = 1
+WORKDIR /code
+COPY requirements.txt /code/
+COPY ./scripts /scripts
 
-COPY  ./nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN pip install -r requirements.txt && \
+    mkdir -p /vol/web/static && \
+    mkdir -p /vol/web/media && \
+    chmod -R 755 /vol && \
+    chmod -R +x /scripts
 
-COPY . .
 
-RUN pip install -r requirements.txt
-
-WORKDIR /another_social_app
-COPY run.sh .
-
-RUN chmod +x run.sh
-
-CMD [ "./run.sh" ]
+COPY . /code/
+CMD [ "/scripts/run.sh" ]

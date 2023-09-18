@@ -18,20 +18,21 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 DEBUG = True
 
-# Quick-start cdevelopment settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-
-SECRET_KEY = 'django-insecure-*ia2%9#k2_2xq_!(aapzuzi89h6#bf=rz^r+w_m65*nny6ckxa'
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-
 ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.environ.get('ALLOWED_HOSTS', '').split(','),
+    )
+)
+
 
 # Application definition88.95mb which exceeds the maximum size limit of 50mb
 
@@ -81,27 +82,35 @@ TEMPLATES = [
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
 
-if DEBUG == True:
-   DATABASES = {
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 
 }
-else:
-    DATABASES = {
-'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME':  'postgres',
-    'USER': 'postgres',
-    'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
-    'HOST': os.environ.get("SUPABASE_HOST"),
-    'PORT': '5432',
+# else:
+#     DATABASES = {
+# 'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME':  'postgres',
+#     'USER': 'postgres',
+#     'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
+#     'HOST': os.environ.get("SUPABASE_HOST"),
+#     'PORT': '5432',
      
-}}
+# }}
 
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'HOST': os.environ.get('DB_HOST'),
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASS'),
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -134,15 +143,22 @@ USE_TZ = True
 
 
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
+
+# am setting the media url to my s3 bucket link
+# MEDIA_URL = '/static/media/'
+# MEDIA_ROOT = BASE_DIR / "media/"
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+STATIC_URL = '/static/static/'
+STATIC_ROOT = BASE_DIR / "static/"
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static" )]
-STATIC_ROOT = os.path.join(BASE_DIR , "staticfiles_build" , "static")
+
+# STATIC_URL = '/static/static/'
+# MEDIA_URL = '/static/media/'
+
+# MEDIA_ROOT = '/vol/web/media'
+# STATIC_ROOT = '/vol/web/static'
 
 
 # Default primary key field type
@@ -155,10 +171,10 @@ LOGIN_URL = 'login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-AWS_STORAGE_BUCKET_NAME= os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY= os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME= os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY= os.environ.get("AWS_SECRET_ACCESS_KEY")
 
-AWS_S3_FILE_OVERWRITE= False     
-AWS_DEFAULT_ACL= None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_FILE_OVERWRITE= False     
+# AWS_DEFAULT_ACL= None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

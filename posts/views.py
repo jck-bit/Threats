@@ -7,11 +7,13 @@ from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-
+from users.models import Profile
 
 @login_required
 def home(request):
     posts = Post.objects.all().order_by('-date_posted')
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
     
     for post in posts:
         like_filter = LikePost.objects.filter(post_id=post.id, username=request.user.username).first()
@@ -24,6 +26,7 @@ def home(request):
 
     context = {
         'posts': posts,
+        'user_profile': user_profile
     }
 
     return render(request, 'posts/home.html', context)
@@ -34,6 +37,7 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context =  super().get_context_data(**kwargs)
+
         post = self.object
         comments_with_replies = []
 
@@ -43,6 +47,7 @@ class PostDetailView(DetailView):
             comments_with_replies.append(comment)
 
         context['comments_with_replies'] = comments_with_replies
+        context['user_profile'] = Profile.objects.get(user=self.request.user)
         return context
    
 
@@ -79,9 +84,17 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     success_url = '/'
     template_name = 'posts/post_upload.html'
     fields = ['caption', 'image']
+    
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context =  super().get_context_data(**kwargs)
+        context['user_profile'] = Profile.objects.get(user=self.request.user)
+        return context
+    
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+
         return super().form_valid(form)
     
     def form_invalid(self, form: BaseModelForm) -> HttpResponse:
@@ -131,8 +144,10 @@ def get_detailview_of_comment(request,post_id, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     post = get_object_or_404(Post, id=post_id)
     replies = Reply.objects.filter(comment=comment)
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
     
-    return render(request, 'posts/comment_detail.html', {'comment': comment, 'post': post, 'replies': replies})
+    return render(request, 'posts/comment_detail.html', {'comment': comment, 'post': post, 'replies': replies, 'user_profile':user_profile})
 
 def create_reply(request, post_id, comment_id):
     if request.method == 'POST':
@@ -140,6 +155,7 @@ def create_reply(request, post_id, comment_id):
         comment = get_object_or_404(Comment, id=comment_id)
         text = request.POST.get('comment_text')
         author = request.user
+        
         
         reply = Reply.objects.create(comment=comment, text=text, author=author, parent_reply=None)
         reply.save()
@@ -151,9 +167,10 @@ def get_detailview_of_reply(request, post_id, comment_id, reply_id):
     comment = get_object_or_404(Comment, id=comment_id)
     parent_reply = reply.parent_reply
     replies = Reply.objects.filter(comment=comment, parent_reply=reply).order_by('-created_at')
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
     
-    
-    return render(request, 'posts/reply_detail.html', {'reply': reply, 'post': post, 'comment': comment, 'replies': replies})
+    return render(request, 'posts/reply_detail.html', {'reply': reply, 'post': post, 'comment': comment, 'replies': replies, 'user_profile':user_profile})
 
 ###This function is not working properly, I am trying to create a nested reply associated with the parent reply, i cant figure it out
 def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id):

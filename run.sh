@@ -7,3 +7,7 @@ gunicorn another_social_app.wsgi:application --bind 0.0.0.0:8000 &
 
 unlink /etc/nginx/sites-enabled/default
 nginx -g 'daemon off;'
+
+
+
+
