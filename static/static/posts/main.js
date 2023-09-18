@@ -5,6 +5,7 @@ document.querySelectorAll('.like-link').forEach(link => {
         fetch(`/like-post?post_id=${postId}`)
             .then(response => response.json())
             .then(data => {
+
                 link.querySelector('span').textContent = data.likes_count;
                 if (data.liked) {
                     link.classList.add('liked');
@@ -15,3 +16,4 @@ document.querySelectorAll('.like-link').forEach(link => {
             .catch(error => console.error('Error:', error));
     });
 });
+

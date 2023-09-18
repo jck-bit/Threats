@@ -145,14 +145,10 @@ def follow_user(request, pk):
 def suggested_users(request):
     # Get the  logged-in user
     user = request.user
-
     suggested_users = User.objects.filter(~Q(followers__follower=user) & ~Q(pk=user.pk)).order_by('?')[:4]
     data = list(suggested_users.values('id', 'username', profile_image_url=F('profile__image')))
-
-
     for user_data in data:
-        user_data['profile_image_url'] =  user_data['profile_image_url']
-
+        if user_data:
+           user_data['profile_image_url'] = '/media/' + user_data['profile_image_url']
     data = random.sample(data, len(data))
-
     return JsonResponse({'users': data})
