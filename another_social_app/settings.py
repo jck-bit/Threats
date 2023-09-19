@@ -82,7 +82,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'another_social_app.wsgi.application'
 
 
-
+#development
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -90,18 +90,8 @@ WSGI_APPLICATION = 'another_social_app.wsgi.application'
 #     }
 
 # }
-# else:
-#     DATABASES = {
-# 'default': {
-#     'ENGINE': 'django.db.backends.postgresql',
-#     'NAME':  'postgres',
-#     'USER': 'postgres',
-#     'PASSWORD': os.environ.get("SUPABASE_PASSWORD"),
-#     'HOST': os.environ.get("SUPABASE_HOST"),
-#     'PORT': '5432',
-     
-# }}
 
+#production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -146,15 +136,12 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 
-
+#development
 # STATIC_URL = '/static/static/'
 # STATIC_ROOT = BASE_DIR / "static/"
 
-
+#production
 STATIC_URL = '/static/static/'
-# MEDIA_URL = '/static/media/'
-
-# MEDIA_ROOT = '/vol/web/media'
 STATIC_ROOT = '/vol/web/static'
 
 
