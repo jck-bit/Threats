@@ -6,6 +6,8 @@ services:
     restart: always
     volumes:
       - static-data:/vol/web
+      - media:/vol/media
+      - ./default_media:/default_media
     environment:
       - DB_HOST=db
       - DB_NAME=${DB_NAME}
@@ -41,3 +43,4 @@ services:
 volumes:
   postgres-data:
   static-data:
+  media:
