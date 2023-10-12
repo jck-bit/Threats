@@ -184,23 +184,10 @@ def create_reply_to_another_reply(request, post_id, comment_id, parent_reply_id)
         # Creating a nested reply associated with the parent reply
         nested_reply = Reply.objects.create(comment=comment, parent_reply=parent_reply, text=text, author=author)
 
-        # Fetch all replies associated with the comment, including nested replies
-        #replies = Reply.objects.filter(comment=comment)
-
-        # Fetch the parent reply associated with the comment
         parent_reply = Reply.objects.filter(comment=comment, parent_reply=None)
         nested_reply.save()
         
-        # Correct usage of reverse in get_detailview_of_reply
-       # Correct usage o  vf xreverse in get_detailview_of_reply
         return redirect('reply-detail', post_id=post.id, comment_id=comment.id, reply_id=nested_reply.id)
-        # return render(request, 'posts/reply_detail.html', {
-        #     'post': post,
-        #     'comment': comment,
-        #     'parent_reply': parent_reply,
-        #     'replies': replies,
-        #     'nested_reply': nested_reply
-        # })
 
 def delete_reply_comment(request, post_id, comment_id, reply_id):
     reply = get_object_or_404(Reply, id=reply_id)
