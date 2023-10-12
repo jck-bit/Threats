@@ -8,6 +8,8 @@ profiles, and manage their content
 
 ## 📷 screenshots
  ![screenshot 1](./screenshots/Screenshot-from-2023-08-19-14-56-56.jpg)
+
+ 
  ![](./screenshots/Screenshot%20from%202023-10-12%2013-26-23.png)
  
 ## 🚀 Getting Started
