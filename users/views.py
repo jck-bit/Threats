@@ -36,7 +36,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         user = get_object_or_404(User, pk=self.kwargs.get('pk'))
         return Post.objects.filter(user=user).order_by('-date_posted')
     
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +67,7 @@ def profile(request):
     
     
     for post in posts:
-        like_filter = LikePost.objects.filter(post_id=post.id, username=user.username).first()
+        like_filter = LikePost.objects.filter(post_id=post.id,username=user.username).first()
         post.is_liked_by_user = like_filter is not None
         
 
@@ -148,7 +147,6 @@ def suggested_users(request):
     suggested_users = User.objects.filter(~Q(followers__follower=user) & ~Q(pk=user.pk)).order_by('?')[:4]
     data = list(suggested_users.values('id', 'username', profile_image_url=F('profile__image')))
     for user_data in data:
-        if user_data:
-           user_data['profile_image_url'] = '/media/' + user_data['profile_image_url']
+        user_data['profile_image_url'] = '/media/' + user_data['profile_image_url']
     data = random.sample(data, len(data))
     return JsonResponse({'users': data})
