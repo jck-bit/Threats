@@ -2,7 +2,9 @@
 
 This repository contains a Django social Medeia app that uses Docker to manage local and production environments. It provides Docker Compose files for both development and production setups.
 
-[![Threats Video Preview](./screenshots/threats%20.mp4)](./screenshots/threats%20.mp4)
+<video width="320" height="240" controls>
+  <source src="./screenshots/threats .mp4" type="video/mp4">
+</video>
 
 ## Table of Contents
 
