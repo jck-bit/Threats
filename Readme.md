@@ -1,6 +1,10 @@
 # Django Project with Docker
 
-This repository contains a Django project that uses Docker to manage local and production environments. It provides Docker Compose files for both development and production setups.
+This repository contains a Django social Medeia app that uses Docker to manage local and production environments. It provides Docker Compose files for both development and production setups.
+
+<video width="320" height="240" controls>
+  <source src="./screenshots/threats .mp4" type="video/mp4">
+</video>
 
 ## Table of Contents
 
@@ -44,6 +48,7 @@ Make sure you're in the project directory where `docker-compose.yml` is located.
 ```sh
 docker-compose up --build
 ```
+
 move to the project directory
 
 ```sh
@@ -126,14 +131,14 @@ After deployment, the app will be accessible via the domain you set in `ALLOWED_
 
 The project uses the following environment variables for both development and production environments. You can define them in `.env` files or directly in your `docker-compose.yml` files.
 
-| Variable           | Description                                      |
-|--------------------|--------------------------------------------------|
-| `DB_NAME`          | The name of the PostgreSQL database.             |
-| `DB_USER`          | The PostgreSQL username.                        |
-| `DB_PASS`          | The PostgreSQL password.                        |
-| `SECRET_KEY`       | A secret key for Django (make sure it's unique). |
-| `ALLOWED_HOSTS`    | Comma-separated list of allowed hosts (e.g., localhost, 127.0.0.1). |
-| `POSTGRES_COLLATION` | PostgreSQL collation setting (default is `en_US.UTF-8`). |
+| Variable             | Description                                                         |
+| -------------------- | ------------------------------------------------------------------- |
+| `DB_NAME`            | The name of the PostgreSQL database.                                |
+| `DB_USER`            | The PostgreSQL username.                                            |
+| `DB_PASS`            | The PostgreSQL password.                                            |
+| `SECRET_KEY`         | A secret key for Django (make sure it's unique).                    |
+| `ALLOWED_HOSTS`      | Comma-separated list of allowed hosts (e.g., localhost, 127.0.0.1). |
+| `POSTGRES_COLLATION` | PostgreSQL collation setting (default is `en_US.UTF-8`).            |
 
 ## Additional Configuration
 
@@ -180,10 +185,12 @@ This will execute your Django tests inside the app container.
 ### Common Issues
 
 - **Database Connection Error**:
+
   - Ensure that the `DB_HOST` in `settings.py` is set to the correct value (`db` in Docker Compose).
   - Ensure that the `db` service is running and healthy.
 
 - **Static Files Not Serving**:
+
   - Make sure you’ve run `python manage.py collectstatic` in production to collect static files.
   - In development, ensure that `DEBUG=True` in your `settings.py` to serve static files via Django.
 
